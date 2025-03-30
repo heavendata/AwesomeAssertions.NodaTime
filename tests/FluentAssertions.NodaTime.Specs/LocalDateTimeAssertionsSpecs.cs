@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.NodaTime.Specs.Extensions;
-
 using NodaTime;
 using NodaTime.Calendars;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -13,10 +10,7 @@ namespace FluentAssertions.NodaTime.Specs
 {
     public static class LocalDateTimeAssertionsSpecs
     {
-        private static CalendarSystem RandomCalendarSystem()
-        {
-            return CalendarSystem.ForId(CalendarSystem.Ids.Random());
-        }
+        private static CalendarSystem RandomCalendarSystem() => CalendarSystem.ForId(CalendarSystem.Ids.Random());
 
         private static (CalendarSystem first, CalendarSystem second) TwoRandomCalendarSystems()
         {
@@ -25,10 +19,7 @@ namespace FluentAssertions.NodaTime.Specs
             return (first, second);
         }
 
-        private static IsoDayOfWeek RandomDayOfWeek()
-        {
-            return (IsoDayOfWeek)new Random().Next(1, 7);
-        }
+        private static IsoDayOfWeek RandomDayOfWeek() => (IsoDayOfWeek)new Random().Next(1, 7);
 
         public class Be
         {
@@ -137,7 +128,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other)}, but found {localDateTime}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other)}, but found {localDateTime}.");
             }
 
             [Fact]
@@ -168,7 +160,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other)}, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other)}, but found <null>.");
             }
 
             [Fact]
@@ -219,7 +212,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other, calendar)}, but found {localDateTime}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other, calendar)}, but found {localDateTime}.");
             }
 
             [Fact]
@@ -236,7 +230,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other, otherCalendar)}, but found {localDateTime}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other, otherCalendar)}, but found {localDateTime}.");
             }
 
             [Fact]
@@ -268,7 +263,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other, calendar)}, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to be equal to {LocalDateTime.FromDateTime(other, calendar)}, but found <null>.");
             }
 
             [Fact]
@@ -401,7 +397,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull", Justification = "It is supposed to not be null for the test.")]
+            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull",
+                Justification = "It is supposed to not be null for the test.")]
             public void When_asserting_null_is_not_equal_to_null_it_fails()
             {
                 // Arrange
@@ -417,7 +414,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull", Justification = "It is supposed to not be null for the test.")]
+            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull",
+                Justification = "It is supposed to not be null for the test.")]
             public void When_asserting_null_is_not_equal_to_not_null_it_succeeds()
             {
                 // Arrange
@@ -432,7 +430,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull", Justification = "It is supposed to not be null for the test.")]
+            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull",
+                Justification = "It is supposed to not be null for the test.")]
             public void When_asserting_not_null_is_not_equal_to_null_it_succeeds()
             {
                 // Arrange
@@ -498,7 +497,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull", Justification = "It is supposed to not be null for the test.")]
+            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull",
+                Justification = "It is supposed to not be null for the test.")]
             public void When_asserting_null_is_equal_to_null_it_fails()
             {
                 // Arrange
@@ -514,7 +514,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull", Justification = "It is supposed to not be null for the test.")]
+            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull",
+                Justification = "It is supposed to not be null for the test.")]
             public void When_asserting_null_is_equal_to_not_null_it_succeeds()
             {
                 // Arrange
@@ -530,7 +531,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull", Justification = "It is supposed to not be null for the test.")]
+            [SuppressMessage("ReSharper", "ExpressionIsAlwaysNull",
+                Justification = "It is supposed to not be null for the test.")]
             public void When_asserting_not_null_is_equal_to_null_it_succeeds()
             {
                 // Arrange
@@ -812,7 +814,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have time of day {time}, but found {localDateTime.TimeOfDay}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have time of day {time}, but found {localDateTime.TimeOfDay}.");
             }
 
             [Fact]
@@ -906,7 +909,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have clock hour of the half-day of {time}, but found {localDateTime.ClockHourOfHalfDay}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have clock hour of the half-day of {time}, but found {localDateTime.ClockHourOfHalfDay}.");
             }
 
             [Fact]
@@ -922,7 +926,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have clock hour of the half-day of {time}, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have clock hour of the half-day of {time}, but found <null>.");
             }
         }
 
@@ -939,7 +944,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have clock hour of the half-day of {localDateTime.ClockHourOfHalfDay}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have clock hour of the half-day of {localDateTime.ClockHourOfHalfDay}.");
             }
 
             [Fact]
@@ -969,7 +975,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have clock hour of the half-day of {time}, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have clock hour of the half-day of {time}, but found <null>.");
             }
         }
 
@@ -1094,7 +1101,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have day of week {dayOfWeek.AsFormatted()}, but found {localDateTime.DayOfWeek.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have day of week {dayOfWeek.AsFormatted()}, but found {localDateTime.DayOfWeek.AsFormatted()}.");
             }
 
             [Fact]
@@ -1110,7 +1118,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have day of week {dayOfWeek.AsFormatted()}, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have day of week {dayOfWeek.AsFormatted()}, but found <null>.");
             }
         }
 
@@ -1127,7 +1136,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have day of week {localDateTime.DayOfWeek.AsFormatted()}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have day of week {localDateTime.DayOfWeek.AsFormatted()}.");
             }
 
             [Fact]
@@ -1157,7 +1167,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have day of week {dayOfWeek.AsFormatted()}, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have day of week {dayOfWeek.AsFormatted()}, but found <null>.");
             }
         }
 
@@ -1188,7 +1199,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have day of year {dayOfYear}, but found {localDateTime.DayOfYear}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have day of year {dayOfYear}, but found {localDateTime.DayOfYear}.");
             }
 
             [Fact]
@@ -1282,7 +1294,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have hour of day {hourOfDay}, but found {localDateTime.Hour}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have hour of day {hourOfDay}, but found {localDateTime.Hour}.");
             }
 
             [Fact]
@@ -1470,7 +1483,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have millisecond {millisecondOfDay}, but found {localDateTime.Millisecond}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have millisecond {millisecondOfDay}, but found {localDateTime.Millisecond}.");
             }
 
             [Fact]
@@ -1533,7 +1547,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have millisecond {millisecondOfDay}, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have millisecond {millisecondOfDay}, but found <null>.");
             }
         }
 
@@ -1564,7 +1579,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have minute {minuteOfDay}, but found {localDateTime.Minute}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have minute {minuteOfDay}, but found {localDateTime.Minute}.");
             }
 
             [Fact]
@@ -1752,7 +1768,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found {localDateTime.NanosecondOfDay.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found {localDateTime.NanosecondOfDay.AsFormatted()}.");
             }
 
             [Fact]
@@ -1768,7 +1785,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found <null>.");
             }
         }
 
@@ -1785,7 +1803,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {localDateTime.NanosecondOfDay.AsFormatted()} nanoseconds within the day.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {localDateTime.NanosecondOfDay.AsFormatted()} nanoseconds within the day.");
             }
 
             [Fact]
@@ -1815,7 +1834,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found <null>.");
             }
         }
 
@@ -1846,7 +1866,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found {localDateTime.NanosecondOfSecond}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found {localDateTime.NanosecondOfSecond}.");
             }
 
             [Fact]
@@ -1862,7 +1883,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found <null>.");
             }
         }
 
@@ -1879,7 +1901,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {localDateTime.NanosecondOfSecond} nanoseconds within the second.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {localDateTime.NanosecondOfSecond} nanoseconds within the second.");
             }
 
             [Fact]
@@ -1909,7 +1932,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found <null>.");
             }
         }
 
@@ -2128,7 +2152,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found {localDateTime.TickOfDay.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found {localDateTime.TickOfDay.AsFormatted()}.");
             }
 
             [Fact]
@@ -2144,7 +2169,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found <null>.");
             }
         }
 
@@ -2161,7 +2187,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {localDateTime.TickOfDay.AsFormatted()} ticks within the day.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {localDateTime.TickOfDay.AsFormatted()} ticks within the day.");
             }
 
             [Fact]
@@ -2191,7 +2218,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found <null>.");
             }
         }
 
@@ -2222,7 +2250,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {tickOfSecond} ticks within the second, but found {localDateTime.TickOfSecond}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {tickOfSecond} ticks within the second, but found {localDateTime.TickOfSecond}.");
             }
 
             [Fact]
@@ -2238,7 +2267,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {tickOfSecond} ticks within the second, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {tickOfSecond} ticks within the second, but found <null>.");
             }
         }
 
@@ -2255,7 +2285,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {localDateTime.TickOfSecond} ticks within the second.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {localDateTime.TickOfSecond} ticks within the second.");
             }
 
             [Fact]
@@ -2285,7 +2316,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {tickOfSecond} ticks within the second, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {tickOfSecond} ticks within the second, but found <null>.");
             }
         }
 
@@ -2316,7 +2348,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {yearOfEra} as the year within the era, but found {localDateTime.YearOfEra}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {yearOfEra} as the year within the era, but found {localDateTime.YearOfEra}.");
             }
 
             [Fact]
@@ -2332,7 +2365,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to have {yearOfEra} as the year within the era, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to have {yearOfEra} as the year within the era, but found <null>.");
             }
         }
 
@@ -2349,7 +2383,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {localDateTime.YearOfEra} as the year within the era.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {localDateTime.YearOfEra} as the year within the era.");
             }
 
             [Fact]
@@ -2379,7 +2414,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(localDateTime)} to have {yearOfEra} as the year within the era, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(localDateTime)} to have {yearOfEra} as the year within the era, but found <null>.");
             }
         }
 
@@ -2441,7 +2477,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to be greater than {localDateTime}, but found {localDateTime}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to be greater than {localDateTime}, but found {localDateTime}.");
             }
         }
 
@@ -2501,7 +2538,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to be greater than or equal to {other}, but found {localDateTime}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to be greater than or equal to {other}, but found {localDateTime}.");
             }
         }
 
@@ -2623,7 +2661,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(localDateTime)} to be less than or equal to {other}, but found {localDateTime}.");
+                    .WithMessage(
+                        $"Expected {nameof(localDateTime)} to be less than or equal to {other}, but found {localDateTime}.");
             }
         }
     }

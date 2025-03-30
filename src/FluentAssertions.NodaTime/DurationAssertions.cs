@@ -1,10 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.Execution;
 using FluentAssertions.NodaTime.Extensions;
 using FluentAssertions.Primitives;
-
 using NodaTime;
 
 namespace FluentAssertions.NodaTime
@@ -19,8 +17,9 @@ namespace FluentAssertions.NodaTime
         ///     Initializes a new <see cref="DurationAssertions" />.
         /// </summary>
         /// <param name="subject">The <see cref="Duration" /> that is being asserted.</param>
-        public DurationAssertions(Duration? subject)
-            : base(subject)
+        /// <param name="chain"></param>
+        public DurationAssertions(Duration? subject, AssertionChain chain)
+            : base(subject, chain)
         {
         }
 
@@ -28,8 +27,9 @@ namespace FluentAssertions.NodaTime
         [ExcludeFromCodeCoverage]
         protected override string Identifier
         {
-            get { return "Duration"; }
+            get => "Duration";
         }
+
         /// <summary>
         ///     Asserts that this <see cref="Duration" /> is equal to <paramref name="other" />.
         /// </summary>
@@ -47,12 +47,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> Be(Duration? other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(Nullable.Equals(Subject, other))
                 .FailWith("Expected {context:Duration} to be equal to {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -70,10 +70,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> Be(TimeSpan? other, string because = "", params object[] becauseArgs)
-        {
-            return Be(other.HasValue ? Duration.FromTimeSpan(other.Value) : null, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> Be(TimeSpan? other, string because = "", params object[] becauseArgs) =>
+            Be(other.HasValue ? Duration.FromTimeSpan(other.Value) : null, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Duration" /> is not equal to <paramref name="other" />.
@@ -92,12 +90,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> NotBe(Duration? other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(!Nullable.Equals(Subject, other))
                 .FailWith("Did not expect {context:Duration} to be equal to {0}{reason}.", other);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -115,10 +113,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotBe(TimeSpan? other, string because = "", params object[] becauseArgs)
-        {
-            return NotBe(other.HasValue ? Duration.FromTimeSpan(other.Value) : null, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> NotBe(TimeSpan? other, string because = "", params object[] becauseArgs) =>
+            NotBe(other.HasValue ? Duration.FromTimeSpan(other.Value) : null, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Duration" /> is positive.
@@ -136,12 +132,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> BePositive(string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject > Duration.Zero)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:Duration} to be positive, but found {0}.", Subject);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -160,12 +156,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> BeNegative(string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject < Duration.Zero)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:Duration} to be negative, but found {0}.", Subject);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -184,12 +180,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> BeZero(string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject == Duration.Zero)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:Duration} to be zero, but found {0}.", Subject);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -208,12 +204,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> NotBeZero(string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject != Duration.Zero)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Did not expect {context:Duration} to be zero, but found {0}.", Subject);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -232,10 +228,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> BeCloseTo(Duration other, TimeSpan precision, string because = "", params object[] becauseArgs)
-        {
-            return BeCloseTo(other, Duration.FromTimeSpan(precision), because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> BeCloseTo(Duration other, TimeSpan precision, string because = "",
+            params object[] becauseArgs) => BeCloseTo(other, Duration.FromTimeSpan(precision), because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Duration" /> is within <paramref name="precision" /> of <paramref name="other" />.
@@ -253,20 +247,21 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> BeCloseTo(Duration other, Duration precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> BeCloseTo(Duration other, Duration precision, string because = "",
+            params object[] becauseArgs)
         {
             if (precision < Duration.Zero)
-            {
-                throw new ArgumentOutOfRangeException(nameof(precision), $"The value of {nameof(precision)} must be non-negative.");
-            }
+                throw new ArgumentOutOfRangeException(nameof(precision),
+                    $"The value of {nameof(precision)} must be non-negative.");
 
             Duration? distance = other > Subject ? other - Subject : Subject - other;
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(distance <= precision)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:Duration} to be within {0} from {1}{reason}, but it was {2}.", precision, other, distance);
+                .FailWith("Expected {context:Duration} to be within {0} from {1}{reason}, but it was {2}.", precision, other,
+                    distance);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -285,10 +280,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotBeCloseTo(Duration other, TimeSpan precision, string because = "", params object[] becauseArgs)
-        {
-            return NotBeCloseTo(other, Duration.FromTimeSpan(precision), because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> NotBeCloseTo(Duration other, TimeSpan precision, string because = "",
+            params object[] becauseArgs) => NotBeCloseTo(other, Duration.FromTimeSpan(precision), because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Duration" /> is not within <paramref name="precision" /> of <paramref name="other" />.
@@ -306,20 +299,21 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotBeCloseTo(Duration other, Duration precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotBeCloseTo(Duration other, Duration precision, string because = "",
+            params object[] becauseArgs)
         {
             if (precision < Duration.Zero)
-            {
-                throw new ArgumentOutOfRangeException(nameof(precision), $"The value of {nameof(precision)} must be non-negative.");
-            }
+                throw new ArgumentOutOfRangeException(nameof(precision),
+                    $"The value of {nameof(precision)} must be non-negative.");
 
             Duration? distance = other > Subject ? other - Subject : Subject - other;
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(distance > precision)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Did not expect {context:Duration} to be within {0} from {1}{reason}, but it was {2}.", precision, other, distance);
+                .FailWith("Did not expect {context:Duration} to be within {0} from {1}{reason}, but it was {2}.", precision,
+                    other, distance);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -339,12 +333,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> BeGreaterThan(Duration other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject > other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:Duration} to be greater than {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -362,14 +356,16 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> BeGreaterThanOrEqualTo(Duration other, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> BeGreaterThanOrEqualTo(Duration other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject >= other)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:Duration} to be greater than or equal to {0}{reason}, but found {1}.", other, Subject);
+                .FailWith("Expected {context:Duration} to be greater than or equal to {0}{reason}, but found {1}.", other,
+                    Subject);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -389,12 +385,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> BeLessThan(Duration other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject < other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:Duration} to be less than {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -412,14 +408,15 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> BeLessThanOrEqualTo(Duration other, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> BeLessThanOrEqualTo(Duration other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject <= other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:Duration} to be less than or equal to {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -441,25 +438,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> HaveSeconds(int seconds, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} seconds{reason}", seconds);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} seconds{reason}", seconds, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Seconds.Equals(seconds))
+                            .FailWith(", but found {0}.", Subject.Value.Seconds);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Seconds.Equals(seconds))
-                    .FailWith(", but found {0}.", Subject.Value.Seconds);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+                return new(this);
         }
 
         /// <summary>
@@ -481,25 +474,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> NotHaveSeconds(int seconds, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} seconds{reason}", seconds);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} seconds{reason}", seconds, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Seconds.Equals(seconds))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Seconds.Equals(seconds))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -521,25 +510,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> HaveDays(int days, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} days{reason}", days);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} days{reason}", days, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Days.Equals(days))
+                            .FailWith(", but found {0}.", Subject.Value.Days);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Days.Equals(days))
-                    .FailWith(", but found {0}.", Subject.Value.Days);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -561,25 +546,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> NotHaveDays(int days, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} days{reason}", days);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} days{reason}", days, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Days.Equals(days))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Days.Equals(days))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -601,25 +582,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> HaveHours(int hours, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} hours{reason}", hours);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} hours{reason}", hours, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Hours.Equals(hours))
+                            .FailWith(", but found {0}.", Subject.Value.Hours);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Hours.Equals(hours))
-                    .FailWith(", but found {0}.", Subject.Value.Hours);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -641,25 +618,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> NotHaveHours(int hours, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} hours{reason}", hours);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} hours{reason}", hours, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Hours.Equals(hours))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Hours.Equals(hours))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -679,10 +652,9 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalDays(double totalDays, string because = "", params object[] becauseArgs)
-        {
-            return HaveTotalDays(totalDays, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions>
+            HaveTotalDays(double totalDays, string because = "", params object[] becauseArgs) =>
+            HaveTotalDays(totalDays, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> has the specified total number of days.
@@ -702,27 +674,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalDays(double totalDays, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> HaveTotalDays(double totalDays, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} total number of days (+/- {1}){reason}", totalDays, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} total number of days (+/- {1}){reason}", totalDays,
+                    precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.TotalDays.IsApproximatelyEqual(totalDays, precision))
+                                .FailWith(", but found {0}.", Subject.Value.TotalDays);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TotalDays.IsApproximatelyEqual(totalDays, precision))
-                    .FailWith(", but found {0}.", Subject.Value.TotalDays);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -742,10 +712,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalDays(double totalDays, string because = "", params object[] becauseArgs)
-        {
-            return NotHaveTotalDays(totalDays, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> NotHaveTotalDays(double totalDays, string because = "",
+            params object[] becauseArgs) => NotHaveTotalDays(totalDays, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> does not have the specified total number of days.
@@ -765,27 +733,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalDays(double totalDays, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveTotalDays(double totalDays, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} total number of days (+/- {1}){reason}", totalDays, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} total number of days (+/- {1}){reason}",
+                    totalDays, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.TotalDays.IsApproximatelyEqual(totalDays, precision))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TotalDays.IsApproximatelyEqual(totalDays, precision))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -805,10 +771,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalHours(double totalHours, string because = "", params object[] becauseArgs)
-        {
-            return HaveTotalHours(totalHours, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> HaveTotalHours(double totalHours, string because = "",
+            params object[] becauseArgs) => HaveTotalHours(totalHours, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> has the specified total number of hours.
@@ -828,27 +792,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalHours(double totalHours, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> HaveTotalHours(double totalHours, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} total number of hours (+/- {1}){reason}", totalHours, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} total number of hours (+/- {1}){reason}", totalHours,
+                    precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.TotalHours.IsApproximatelyEqual(totalHours, precision))
+                                .FailWith(", but found {0}.", Subject.Value.TotalHours);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TotalHours.IsApproximatelyEqual(totalHours, precision))
-                    .FailWith(", but found {0}.", Subject.Value.TotalHours);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -868,10 +830,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalHours(double totalHours, string because = "", params object[] becauseArgs)
-        {
-            return NotHaveTotalHours(totalHours, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> NotHaveTotalHours(double totalHours, string because = "",
+            params object[] becauseArgs) => NotHaveTotalHours(totalHours, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> does not have the specified total number of hours.
@@ -891,27 +851,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalHours(double totalHours, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveTotalHours(double totalHours, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} total number of hours (+/- {1}){reason}", totalHours, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} total number of hours (+/- {1}){reason}",
+                    totalHours, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.TotalHours.IsApproximatelyEqual(totalHours, precision))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TotalHours.IsApproximatelyEqual(totalHours, precision))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -931,10 +889,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalMilliseconds(double totalMilliseconds, string because = "", params object[] becauseArgs)
-        {
-            return HaveTotalMilliseconds(totalMilliseconds, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> HaveTotalMilliseconds(double totalMilliseconds, string because = "",
+            params object[] becauseArgs) => HaveTotalMilliseconds(totalMilliseconds, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> has the specified total number of milliseconds.
@@ -954,27 +910,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalMilliseconds(double totalMilliseconds, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> HaveTotalMilliseconds(double totalMilliseconds, double precision,
+            string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} total number of milliseconds (+/- {1}){reason}", totalMilliseconds, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} total number of milliseconds (+/- {1}){reason}",
+                    totalMilliseconds, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.TotalMilliseconds.IsApproximatelyEqual(totalMilliseconds, precision))
+                                .FailWith(", but found {0}.", Subject.Value.TotalMilliseconds);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TotalMilliseconds.IsApproximatelyEqual(totalMilliseconds, precision))
-                    .FailWith(", but found {0}.", Subject.Value.TotalMilliseconds);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -994,10 +948,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalMilliseconds(double totalMilliseconds, string because = "", params object[] becauseArgs)
-        {
-            return NotHaveTotalMilliseconds(totalMilliseconds, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> NotHaveTotalMilliseconds(double totalMilliseconds, string because = "",
+            params object[] becauseArgs) => NotHaveTotalMilliseconds(totalMilliseconds, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> does not have the specified total number of milliseconds.
@@ -1017,27 +969,26 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalMilliseconds(double totalMilliseconds, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveTotalMilliseconds(double totalMilliseconds, double precision,
+            string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} total number of milliseconds (+/- {1}){reason}", totalMilliseconds, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation(
+                    "Did not expect {context:Duration} to have {0} total number of milliseconds (+/- {1}){reason}",
+                    totalMilliseconds, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.TotalMilliseconds.IsApproximatelyEqual(totalMilliseconds, precision))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TotalMilliseconds.IsApproximatelyEqual(totalMilliseconds, precision))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1057,10 +1008,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalMinutes(double totalMinutes, string because = "", params object[] becauseArgs)
-        {
-            return HaveTotalMinutes(totalMinutes, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> HaveTotalMinutes(double totalMinutes, string because = "",
+            params object[] becauseArgs) => HaveTotalMinutes(totalMinutes, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> has the specified total number of minutes.
@@ -1080,27 +1029,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalMinutes(double totalMinutes, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> HaveTotalMinutes(double totalMinutes, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} total number of minutes (+/- {1}){reason}", totalMinutes, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} total number of minutes (+/- {1}){reason}",
+                    totalMinutes, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.TotalMinutes.IsApproximatelyEqual(totalMinutes, precision))
+                                .FailWith(", but found {0}.", Subject.Value.TotalMinutes);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TotalMinutes.IsApproximatelyEqual(totalMinutes, precision))
-                    .FailWith(", but found {0}.", Subject.Value.TotalMinutes);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1120,10 +1067,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalMinutes(double totalMinutes, string because = "", params object[] becauseArgs)
-        {
-            return NotHaveTotalMinutes(totalMinutes, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> NotHaveTotalMinutes(double totalMinutes, string because = "",
+            params object[] becauseArgs) => NotHaveTotalMinutes(totalMinutes, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> does not have the specified total number of minutes.
@@ -1143,27 +1088,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalMinutes(double totalMinutes, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveTotalMinutes(double totalMinutes, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} total number of minutes (+/- {1}){reason}", totalMinutes, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} total number of minutes (+/- {1}){reason}",
+                    totalMinutes, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.TotalMinutes.IsApproximatelyEqual(totalMinutes, precision))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TotalMinutes.IsApproximatelyEqual(totalMinutes, precision))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1183,10 +1126,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalNanoseconds(double totalNanoseconds, string because = "", params object[] becauseArgs)
-        {
-            return HaveTotalNanoseconds(totalNanoseconds, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> HaveTotalNanoseconds(double totalNanoseconds, string because = "",
+            params object[] becauseArgs) => HaveTotalNanoseconds(totalNanoseconds, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> has the specified total number of nanoseconds.
@@ -1206,27 +1147,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalNanoseconds(double totalNanoseconds, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> HaveTotalNanoseconds(double totalNanoseconds, double precision,
+            string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} total number of nanoseconds (+/- {1}){reason}", totalNanoseconds, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} total number of nanoseconds (+/- {1}){reason}",
+                    totalNanoseconds, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.TotalNanoseconds.IsApproximatelyEqual(totalNanoseconds, precision))
+                                .FailWith(", but found {0}.", Subject.Value.TotalNanoseconds);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TotalNanoseconds.IsApproximatelyEqual(totalNanoseconds, precision))
-                    .FailWith(", but found {0}.", Subject.Value.TotalNanoseconds);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1246,10 +1185,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalNanoseconds(double totalNanoseconds, string because = "", params object[] becauseArgs)
-        {
-            return NotHaveTotalNanoseconds(totalNanoseconds, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> NotHaveTotalNanoseconds(double totalNanoseconds, string because = "",
+            params object[] becauseArgs) => NotHaveTotalNanoseconds(totalNanoseconds, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> does not have the specified total number of nanoseconds.
@@ -1269,27 +1206,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalNanoseconds(double totalNanoseconds, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveTotalNanoseconds(double totalNanoseconds, double precision,
+            string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} total number of nanoseconds (+/- {1}){reason}", totalNanoseconds, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} total number of nanoseconds (+/- {1}){reason}",
+                    totalNanoseconds, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.TotalNanoseconds.IsApproximatelyEqual(totalNanoseconds, precision))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TotalNanoseconds.IsApproximatelyEqual(totalNanoseconds, precision))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1309,10 +1244,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalSeconds(double totalSeconds, string because = "", params object[] becauseArgs)
-        {
-            return HaveTotalSeconds(totalSeconds, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> HaveTotalSeconds(double totalSeconds, string because = "",
+            params object[] becauseArgs) => HaveTotalSeconds(totalSeconds, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> has the specified total number of seconds.
@@ -1332,27 +1265,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalSeconds(double totalSeconds, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> HaveTotalSeconds(double totalSeconds, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} total number of seconds (+/- {1}){reason}", totalSeconds, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} total number of seconds (+/- {1}){reason}",
+                    totalSeconds, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.TotalSeconds.IsApproximatelyEqual(totalSeconds, precision))
+                                .FailWith(", but found {0}.", Subject.Value.TotalSeconds);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TotalSeconds.IsApproximatelyEqual(totalSeconds, precision))
-                    .FailWith(", but found {0}.", Subject.Value.TotalSeconds);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1372,10 +1303,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalSeconds(double totalSeconds, string because = "", params object[] becauseArgs)
-        {
-            return NotHaveTotalSeconds(totalSeconds, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> NotHaveTotalSeconds(double totalSeconds, string because = "",
+            params object[] becauseArgs) => NotHaveTotalSeconds(totalSeconds, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> does not have the specified total number of seconds.
@@ -1395,27 +1324,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalSeconds(double totalSeconds, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveTotalSeconds(double totalSeconds, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} total number of seconds (+/- {1}){reason}", totalSeconds, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} total number of seconds (+/- {1}){reason}",
+                    totalSeconds, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.TotalSeconds.IsApproximatelyEqual(totalSeconds, precision))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TotalSeconds.IsApproximatelyEqual(totalSeconds, precision))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1435,10 +1362,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalTicks(double totalTicks, string because = "", params object[] becauseArgs)
-        {
-            return HaveTotalTicks(totalTicks, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> HaveTotalTicks(double totalTicks, string because = "",
+            params object[] becauseArgs) => HaveTotalTicks(totalTicks, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> has the specified total number of ticks.
@@ -1458,27 +1383,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveTotalTicks(double totalTicks, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> HaveTotalTicks(double totalTicks, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} total number of ticks (+/- {1}){reason}", totalTicks, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} total number of ticks (+/- {1}){reason}",
+                    totalTicks, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.TotalTicks.IsApproximatelyEqual(totalTicks, precision))
+                                .FailWith(", but found {0}.", Subject.Value.TotalTicks);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TotalTicks.IsApproximatelyEqual(totalTicks, precision))
-                    .FailWith(", but found {0}.", Subject.Value.TotalTicks);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1498,10 +1421,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalTicks(double totalTicks, string because = "", params object[] becauseArgs)
-        {
-            return NotHaveTotalTicks(totalTicks, 0.01, because, becauseArgs);
-        }
+        public AndConstraint<DurationAssertions> NotHaveTotalTicks(double totalTicks, string because = "",
+            params object[] becauseArgs) => NotHaveTotalTicks(totalTicks, 0.01, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="Duration" /> does not have the specified total number of ticks.
@@ -1521,27 +1442,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveTotalTicks(double totalTicks, double precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveTotalTicks(double totalTicks, double precision, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} total number of ticks (+/- {1}){reason}", totalTicks, precision);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} total number of ticks (+/- {1}){reason}",
+                    totalTicks, precision, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.TotalTicks.IsApproximatelyEqual(totalTicks, precision))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TotalTicks.IsApproximatelyEqual(totalTicks, precision))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1561,27 +1480,24 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveMilliseconds(int milliseconds, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> HaveMilliseconds(int milliseconds, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} milliseconds{reason}", milliseconds);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} milliseconds{reason}", milliseconds, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Milliseconds.Equals(milliseconds))
+                            .FailWith(", but found {0}.", Subject.Value.Milliseconds);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Milliseconds.Equals(milliseconds))
-                    .FailWith(", but found {0}.", Subject.Value.Milliseconds);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1601,27 +1517,24 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveMilliseconds(int milliseconds, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveMilliseconds(int milliseconds, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} milliseconds{reason}", milliseconds);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} milliseconds{reason}", milliseconds, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Milliseconds.Equals(milliseconds))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Milliseconds.Equals(milliseconds))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1643,25 +1556,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> HaveMinutes(int minutes, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} minutes{reason}", minutes);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} minutes{reason}", minutes, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Minutes.Equals(minutes))
+                            .FailWith(", but found {0}.", Subject.Value.Minutes);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Minutes.Equals(minutes))
-                    .FailWith(", but found {0}.", Subject.Value.Minutes);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1683,25 +1592,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> NotHaveMinutes(int minutes, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} minutes{reason}", minutes);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} minutes{reason}", minutes, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Minutes.Equals(minutes))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Minutes.Equals(minutes))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1724,25 +1629,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<DurationAssertions> HaveNanosecondsWithinDay(long nanosecondOfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} nanoseconds within the day{reason}", nanosecondOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} nanoseconds within the day{reason}",
+                    nanosecondOfDay, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.NanosecondOfDay.Equals(nanosecondOfDay))
+                                .FailWith(", but found {0}.", Subject.Value.NanosecondOfDay);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.NanosecondOfDay.Equals(nanosecondOfDay))
-                    .FailWith(", but found {0}.", Subject.Value.NanosecondOfDay);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1765,26 +1667,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<DurationAssertions> NotHaveNanosecondsWithinDay(long nanosecondOfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} nanoseconds within the day{reason}",
-                        nanosecondOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} nanoseconds within the day{reason}",
+                    nanosecondOfDay, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.NanosecondOfDay.Equals(nanosecondOfDay))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.NanosecondOfDay.Equals(nanosecondOfDay))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1804,27 +1702,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> HaveSubsecondInNanoseconds(int nanoseconds, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> HaveSubsecondInNanoseconds(int nanoseconds, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} subseconds in nanoseconds{reason}", nanoseconds);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} subseconds in nanoseconds{reason}", nanoseconds,
+                    chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.SubsecondNanoseconds.Equals(nanoseconds))
+                                .FailWith(", but found {0}.", Subject.Value.SubsecondNanoseconds);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.SubsecondNanoseconds.Equals(nanoseconds))
-                    .FailWith(", but found {0}.", Subject.Value.SubsecondNanoseconds);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1844,27 +1740,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveSubsecondInNanoseconds(int nanoseconds, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveSubsecondInNanoseconds(int nanoseconds, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} subseconds in nanoseconds{reason}", nanoseconds);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} subseconds in nanoseconds{reason}",
+                    nanoseconds, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.SubsecondNanoseconds.Equals(nanoseconds))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.SubsecondNanoseconds.Equals(nanoseconds))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1886,25 +1780,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> HaveSubsecondInTicks(int ticks, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} subseconds in ticks{reason}", ticks);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} subseconds in ticks{reason}", ticks, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.SubsecondTicks.Equals(ticks))
+                            .FailWith(", but found {0}.", Subject.Value.SubsecondTicks);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.SubsecondTicks.Equals(ticks))
-                    .FailWith(", but found {0}.", Subject.Value.SubsecondTicks);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1924,27 +1814,24 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;DurationAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<DurationAssertions> NotHaveSubsecondInTicks(int ticks, string because = "", params object[] becauseArgs)
+        public AndConstraint<DurationAssertions> NotHaveSubsecondInTicks(int ticks, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} subseconds in ticks{reason}", ticks);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} subseconds in ticks{reason}", ticks, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.SubsecondTicks.Equals(ticks))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.SubsecondTicks.Equals(ticks))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1966,25 +1853,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> HaveTicks(long ticks, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:Duration} to have {0} ticks{reason}", ticks);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:Duration} to have {0} ticks{reason}", ticks, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.BclCompatibleTicks.Equals(ticks))
+                            .FailWith(", but found {0}.", Subject.Value.BclCompatibleTicks);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.BclCompatibleTicks.Equals(ticks))
-                    .FailWith(", but found {0}.", Subject.Value.BclCompatibleTicks);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -2006,25 +1889,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<DurationAssertions> NotHaveTicks(long ticks, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:Duration} to have {0} ticks{reason}", ticks);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:Duration} to have {0} ticks{reason}", ticks, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.BclCompatibleTicks.Equals(ticks))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.BclCompatibleTicks.Equals(ticks))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<DurationAssertions>(this);
+            return new(this);
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-
 using FluentAssertions.Formatting;
 
 namespace FluentAssertions.NodaTime.Specs.Extensions
@@ -8,8 +7,8 @@ namespace FluentAssertions.NodaTime.Specs.Extensions
     {
         public static string AsFormatted(this Enum value)
         {
-            var formatter = new EnumValueFormatter();
-            var graph = new FormattedObjectGraph(1);
+            EnumValueFormatter formatter = new();
+            FormattedObjectGraph graph = new(1);
             formatter.Format(value, graph, null, null);
 
             return graph.ToString();

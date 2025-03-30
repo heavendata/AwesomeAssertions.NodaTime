@@ -1,6 +1,5 @@
 ﻿using FluentAssertions.Formatting;
 using FluentAssertions.NodaTime.Formatters;
-
 using NodaTime;
 
 namespace FluentAssertions.NodaTime.Specs.Extensions
@@ -9,8 +8,8 @@ namespace FluentAssertions.NodaTime.Specs.Extensions
     {
         public static string AsFormatted(this DateInterval value)
         {
-            var formatter = new DateIntervalValueFormatter();
-            var graph = new FormattedObjectGraph(1);
+            DateIntervalValueFormatter formatter = new();
+            FormattedObjectGraph graph = new(1);
             formatter.Format(value, graph, null, null);
 
             return graph.ToString();

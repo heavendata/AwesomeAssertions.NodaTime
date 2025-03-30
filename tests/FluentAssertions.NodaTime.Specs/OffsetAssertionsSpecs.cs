@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.NodaTime.Specs.Extensions;
-
 using NodaTime;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -663,9 +660,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 withOffset.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offset)} to be within {precision} from {other}, but it was {other - offset}.");
+                    .WithMessage(
+                        $"Expected {nameof(offset)} to be within {precision} from {other}, but it was {other - offset}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offset)} to be within {precision} from {other}, but it was {other - offset}.");
+                    .WithMessage(
+                        $"Expected {nameof(offset)} to be within {precision} from {other}, but it was {other - offset}.");
             }
 
             [Fact]
@@ -758,9 +757,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 withOffset.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offset)} to be within {precision} from {offset}, but it was {Offset.Zero}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offset)} to be within {precision} from {offset}, but it was {Offset.Zero}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offset)} to be within {precision} from {offset}, but it was {Offset.Zero}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offset)} to be within {precision} from {offset}, but it was {Offset.Zero}.");
             }
 
             [Fact]
@@ -778,9 +779,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 withOffset.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {Offset.Zero}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {Offset.Zero}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {Offset.Zero}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {Offset.Zero}.");
             }
 
             [Fact]
@@ -797,9 +800,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 withOffset.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {other - offset}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {other - offset}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {other - offset}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {other - offset}.");
             }
 
             [Fact]
@@ -816,9 +821,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 withOffset.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {offset - other}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {offset - other}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {offset - other}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offset)} to be within {precision} from {other}, but it was {offset - other}.");
             }
         }
 
@@ -1090,6 +1097,7 @@ namespace FluentAssertions.NodaTime.Specs
                     .WithMessage($"Did not expect {nameof(offset)} to have {seconds} seconds, but found <null>.");
             }
         }
+
         public class HaveMilliseconds
         {
             [Fact]
@@ -1117,7 +1125,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offset)} to have {milliseconds} milliseconds, but found {offset.Milliseconds}.");
+                    .WithMessage(
+                        $"Expected {nameof(offset)} to have {milliseconds} milliseconds, but found {offset.Milliseconds}.");
             }
 
             [Fact]
@@ -1211,7 +1220,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offset)} to have {nanoseconds.AsFormatted()} nanoseconds, but found {offset.Nanoseconds.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(offset)} to have {nanoseconds.AsFormatted()} nanoseconds, but found {offset.Nanoseconds.AsFormatted()}.");
             }
 
             [Fact]
@@ -1274,7 +1284,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offset)} to have {nanoseconds.AsFormatted()} nanoseconds, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offset)} to have {nanoseconds.AsFormatted()} nanoseconds, but found <null>.");
             }
         }
 
@@ -1305,7 +1316,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offset)} to have {ticks.AsFormatted()} ticks, but found {offset.Ticks.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(offset)} to have {ticks.AsFormatted()} ticks, but found {offset.Ticks.AsFormatted()}.");
             }
 
             [Fact]

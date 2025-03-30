@@ -1,5 +1,4 @@
 ﻿using FluentAssertions.Formatting;
-
 using NodaTime;
 
 namespace FluentAssertions.NodaTime.Formatters
@@ -10,15 +9,10 @@ namespace FluentAssertions.NodaTime.Formatters
     internal sealed class DateIntervalValueFormatter : IValueFormatter
     {
         /// <inheritdoc />
-        public bool CanHandle(object value)
-        {
-            return value is DateInterval;
-        }
+        public bool CanHandle(object value) => value is DateInterval;
 
         /// <inheritdoc />
-        public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext? context, FormatChild? formatChild)
-        {
-            formattedGraph.AddFragment(value.ToString());
-        }
+        public void Format(object value, FormattedObjectGraph formattedGraph, FormattingContext? context,
+            FormatChild? formatChild) => formattedGraph.AddFragment(value.ToString());
     }
 }

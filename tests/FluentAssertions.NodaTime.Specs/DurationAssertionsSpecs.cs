@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.NodaTime.Specs.Extensions;
-
 using NodaTime;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -1700,7 +1697,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_days_within_the_specified_precision_it_succeeds()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_days_within_the_specified_precision_it_succeeds()
             {
                 // Arrange
                 Duration duration = Duration.FromDays(new Random().Next(1, 1000));
@@ -1781,7 +1779,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_hours_within_the_specified_precision_it_fails()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_hours_within_the_specified_precision_it_fails()
             {
                 // Arrange
                 Duration duration = Duration.FromHours(new Random().Next(1, 1000));
@@ -1862,7 +1861,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_hours_within_the_specified_precision_it_succeeds()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_hours_within_the_specified_precision_it_succeeds()
             {
                 // Arrange
                 Duration duration = Duration.FromHours(new Random().Next(1, 1000));
@@ -1943,7 +1943,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_milliseconds_within_the_specified_precision_it_fails()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_milliseconds_within_the_specified_precision_it_fails()
             {
                 // Arrange
                 Duration duration = Duration.FromMilliseconds(new Random().Next(1, 1000));
@@ -1960,7 +1961,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_has_the_specified_total_number_of_milliseconds_within_the_specified_precision_it_succeeds()
+            public void
+                When_a_duration_has_the_specified_total_number_of_milliseconds_within_the_specified_precision_it_succeeds()
             {
                 // Arrange
                 Duration duration = Duration.FromMilliseconds(new Random().Next(1, 1000));
@@ -2024,7 +2026,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_milliseconds_within_the_specified_precision_it_succeeds()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_milliseconds_within_the_specified_precision_it_succeeds()
             {
                 // Arrange
                 Duration duration = Duration.FromMilliseconds(new Random().Next(1, 1000));
@@ -2105,7 +2108,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_minutes_within_the_specified_precision_it_fails()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_minutes_within_the_specified_precision_it_fails()
             {
                 // Arrange
                 Duration duration = Duration.FromMinutes(new Random().Next(1, 1000));
@@ -2186,7 +2190,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_minutes_within_the_specified_precision_it_succeeds()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_minutes_within_the_specified_precision_it_succeeds()
             {
                 // Arrange
                 Duration duration = Duration.FromMinutes(new Random().Next(1, 1000));
@@ -2267,7 +2272,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_nanoseconds_within_the_specified_precision_it_fails()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_nanoseconds_within_the_specified_precision_it_fails()
             {
                 // Arrange
                 Duration duration = Duration.FromNanoseconds(new Random().Next(1, 1000));
@@ -2348,7 +2354,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_nanoseconds_within_the_specified_precision_it_succeeds()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_nanoseconds_within_the_specified_precision_it_succeeds()
             {
                 // Arrange
                 Duration duration = Duration.FromNanoseconds(new Random().Next(1, 1000));
@@ -2429,7 +2436,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_seconds_within_the_specified_precision_it_fails()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_seconds_within_the_specified_precision_it_fails()
             {
                 // Arrange
                 Duration duration = Duration.FromSeconds(new Random().Next(1, 1000));
@@ -2510,7 +2518,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_seconds_within_the_specified_precision_it_succeeds()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_seconds_within_the_specified_precision_it_succeeds()
             {
                 // Arrange
                 Duration duration = Duration.FromSeconds(new Random().Next(1, 1000));
@@ -2591,7 +2600,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_ticks_within_the_specified_precision_it_fails()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_ticks_within_the_specified_precision_it_fails()
             {
                 // Arrange
                 Duration duration = Duration.FromTicks(new Random().Next(1, 1000));
@@ -2672,7 +2682,8 @@ namespace FluentAssertions.NodaTime.Specs
             }
 
             [Fact]
-            public void When_a_duration_does_not_have_the_specified_total_number_of_ticks_within_the_specified_precision_it_succeeds()
+            public void
+                When_a_duration_does_not_have_the_specified_total_number_of_ticks_within_the_specified_precision_it_succeeds()
             {
                 // Arrange
                 Duration duration = Duration.FromTicks(new Random().Next(1, 1000));
@@ -2878,7 +2889,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(duration)} to have {duration.SubsecondNanoseconds} subseconds in nanoseconds.");
+                    .WithMessage(
+                        $"Did not expect {nameof(duration)} to have {duration.SubsecondNanoseconds} subseconds in nanoseconds.");
             }
 
             [Fact]

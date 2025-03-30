@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
-
 using NodaTime;
 
 namespace FluentAssertions.NodaTime
@@ -18,8 +16,9 @@ namespace FluentAssertions.NodaTime
         ///     Initializes a new <see cref="InstantAssertions" />.
         /// </summary>
         /// <param name="subject">The <see cref="Instant" /> that is being asserted.</param>
-        public InstantAssertions(Instant? subject)
-            : base(subject)
+        /// <param name="chain">Assertion chain</param>
+        public InstantAssertions(Instant? subject, AssertionChain chain)
+            : base(subject, chain)
         {
         }
 
@@ -27,7 +26,7 @@ namespace FluentAssertions.NodaTime
         [ExcludeFromCodeCoverage]
         protected override string Identifier
         {
-            get { return "Instant"; }
+            get => "Instant";
         }
 
         /// <summary>
@@ -47,12 +46,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<InstantAssertions> Be(Instant? other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(Nullable.Equals(Subject, other))
                 .FailWith("Expected {context:Instant} to be equal to {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<InstantAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -70,10 +69,9 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> Be(DateTimeOffset? dateTimeOffset, string because = "", params object[] becauseArgs)
-        {
-            return Be(dateTimeOffset.HasValue ? Instant.FromDateTimeOffset(dateTimeOffset.Value) : null, because, becauseArgs);
-        }
+        public AndConstraint<InstantAssertions> Be(DateTimeOffset? dateTimeOffset, string because = "",
+            params object[] becauseArgs) => Be(dateTimeOffset.HasValue ? Instant.FromDateTimeOffset(dateTimeOffset.Value) : null,
+            because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Instant" /> is equal to <paramref name="dateTimeUtc" />.
@@ -90,10 +88,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> Be(DateTime? dateTimeUtc, string because = "", params object[] becauseArgs)
-        {
-            return Be(dateTimeUtc.HasValue ? Instant.FromDateTimeUtc(dateTimeUtc.Value) : null, because, becauseArgs);
-        }
+        public AndConstraint<InstantAssertions> Be(DateTime? dateTimeUtc, string because = "", params object[] becauseArgs) =>
+            Be(dateTimeUtc.HasValue ? Instant.FromDateTimeUtc(dateTimeUtc.Value) : null, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Instant" /> is not equal to <paramref name="other" />.
@@ -112,12 +108,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<InstantAssertions> NotBe(Instant? other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(!Nullable.Equals(Subject, other))
                 .FailWith("Did not expect {context:Instant} to be equal to {0}{reason}.", other);
 
-            return new AndConstraint<InstantAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -135,10 +131,9 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> NotBe(DateTimeOffset? dateTimeOffset, string because = "", params object[] becauseArgs)
-        {
-            return NotBe(dateTimeOffset.HasValue ? Instant.FromDateTimeOffset(dateTimeOffset.Value) : null, because, becauseArgs);
-        }
+        public AndConstraint<InstantAssertions> NotBe(DateTimeOffset? dateTimeOffset, string because = "",
+            params object[] becauseArgs) =>
+            NotBe(dateTimeOffset.HasValue ? Instant.FromDateTimeOffset(dateTimeOffset.Value) : null, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Instant" /> is not equal to <paramref name="dateTimeUtc" />.
@@ -155,10 +150,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> NotBe(DateTime? dateTimeUtc, string because = "", params object[] becauseArgs)
-        {
-            return NotBe(dateTimeUtc.HasValue ? Instant.FromDateTimeUtc(dateTimeUtc.Value) : null, because, becauseArgs);
-        }
+        public AndConstraint<InstantAssertions> NotBe(DateTime? dateTimeUtc, string because = "", params object[] becauseArgs) =>
+            NotBe(dateTimeUtc.HasValue ? Instant.FromDateTimeUtc(dateTimeUtc.Value) : null, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Instant" /> is within <paramref name="precision" /> of <paramref name="other" />.
@@ -176,10 +169,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> BeCloseTo(Instant other, TimeSpan precision, string because = "", params object[] becauseArgs)
-        {
-            return BeCloseTo(other, Duration.FromTimeSpan(precision), because, becauseArgs);
-        }
+        public AndConstraint<InstantAssertions> BeCloseTo(Instant other, TimeSpan precision, string because = "",
+            params object[] becauseArgs) => BeCloseTo(other, Duration.FromTimeSpan(precision), because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Instant" /> is within <paramref name="precision" /> of <paramref name="other" />.
@@ -197,20 +188,21 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> BeCloseTo(Instant other, Duration precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<InstantAssertions> BeCloseTo(Instant other, Duration precision, string because = "",
+            params object[] becauseArgs)
         {
             if (precision < Duration.Zero)
-            {
-                throw new ArgumentOutOfRangeException(nameof(precision), $"The value of {nameof(precision)} must be non-negative.");
-            }
+                throw new ArgumentOutOfRangeException(nameof(precision),
+                    $"The value of {nameof(precision)} must be non-negative.");
 
             Duration? distance = other > Subject ? other - Subject : Subject - other;
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(distance <= precision)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:Instant} to be within {0} from {1}{reason}, but it was {2}.", precision, other, distance);
+                .FailWith("Expected {context:Instant} to be within {0} from {1}{reason}, but it was {2}.", precision, other,
+                    distance);
 
-            return new AndConstraint<InstantAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -229,10 +221,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> NotBeCloseTo(Instant other, TimeSpan precision, string because = "", params object[] becauseArgs)
-        {
-            return NotBeCloseTo(other, Duration.FromTimeSpan(precision), because, becauseArgs);
-        }
+        public AndConstraint<InstantAssertions> NotBeCloseTo(Instant other, TimeSpan precision, string because = "",
+            params object[] becauseArgs) => NotBeCloseTo(other, Duration.FromTimeSpan(precision), because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="Instant" /> is not within <paramref name="precision" /> of <paramref name="other" />.
@@ -250,20 +240,21 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> NotBeCloseTo(Instant other, Duration precision, string because = "", params object[] becauseArgs)
+        public AndConstraint<InstantAssertions> NotBeCloseTo(Instant other, Duration precision, string because = "",
+            params object[] becauseArgs)
         {
             if (precision < Duration.Zero)
-            {
-                throw new ArgumentOutOfRangeException(nameof(precision), $"The value of {nameof(precision)} must be non-negative.");
-            }
+                throw new ArgumentOutOfRangeException(nameof(precision),
+                    $"The value of {nameof(precision)} must be non-negative.");
 
             Duration? distance = other > Subject ? other - Subject : Subject - other;
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(distance > precision)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Did not expect {context:Instant} to be within {0} from {1}{reason}, but it was {2}.", precision, other, distance);
+                .FailWith("Did not expect {context:Instant} to be within {0} from {1}{reason}, but it was {2}.", precision, other,
+                    distance);
 
-            return new AndConstraint<InstantAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -283,12 +274,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<InstantAssertions> BeGreaterThan(Instant other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject > other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:Instant} to be greater than {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<InstantAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -306,14 +297,16 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> BeGreaterThanOrEqualTo(Instant other, string because = "", params object[] becauseArgs)
+        public AndConstraint<InstantAssertions> BeGreaterThanOrEqualTo(Instant other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject >= other)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:Instant} to be greater than or equal to {0}{reason}, but found {1}.", other, Subject);
+                .FailWith("Expected {context:Instant} to be greater than or equal to {0}{reason}, but found {1}.", other,
+                    Subject);
 
-            return new AndConstraint<InstantAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -333,12 +326,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<InstantAssertions> BeLessThan(Instant other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject < other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:Instant} to be less than {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<InstantAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -356,14 +349,15 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;InstantAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<InstantAssertions> BeLessThanOrEqualTo(Instant other, string because = "", params object[] becauseArgs)
+        public AndConstraint<InstantAssertions> BeLessThanOrEqualTo(Instant other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject <= other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:Instant} to be less than or equal to {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<InstantAssertions>(this);
+            return new(this);
         }
     }
 }

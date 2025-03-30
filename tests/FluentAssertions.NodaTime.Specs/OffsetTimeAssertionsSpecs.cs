@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.NodaTime.Specs.Extensions;
-
 using NodaTime;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -33,7 +30,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_asserting_a_offset_time_is_equal_to_itself_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().Be(offsetTime);
@@ -78,7 +76,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_asserting_not_null_is_equal_to_null_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 OffsetTime? other = default;
 
                 // Act
@@ -159,7 +158,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_asserting_not_null_is_equal_to_null_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 OffsetTime? other = default;
 
                 // Act
@@ -330,7 +330,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have offset {Offset.FromTimeSpan(offset)}, but found {offsetTime.Offset}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have offset {Offset.FromTimeSpan(offset)}, but found {offsetTime.Offset}.");
             }
 
             [Fact]
@@ -346,7 +347,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have offset {Offset.FromTimeSpan(offset)}, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have offset {Offset.FromTimeSpan(offset)}, but found <null>.");
             }
         }
 
@@ -396,7 +398,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have offset {Offset.FromTimeSpan(offset)}, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have offset {Offset.FromTimeSpan(offset)}, but found <null>.");
             }
         }
 
@@ -518,7 +521,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_clock_hour_of_half_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().HaveClockHourOfHalfDay(offsetTime.ClockHourOfHalfDay);
@@ -531,7 +535,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_clock_hour_of_half_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int time = offsetTime.With(time => time.PlusHours(1)).ClockHourOfHalfDay;
 
                 // Act
@@ -539,7 +544,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have clock hour of the half-day of {time}, but found {offsetTime.ClockHourOfHalfDay}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have clock hour of the half-day of {time}, but found {offsetTime.ClockHourOfHalfDay}.");
             }
 
             [Fact]
@@ -555,7 +561,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have clock hour of the half-day of {time}, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have clock hour of the half-day of {time}, but found <null>.");
             }
         }
 
@@ -565,21 +572,24 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_clock_hour_of_half_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().NotHaveClockHourOfHalfDay(offsetTime.ClockHourOfHalfDay);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have clock hour of the half-day of {offsetTime.ClockHourOfHalfDay}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have clock hour of the half-day of {offsetTime.ClockHourOfHalfDay}.");
             }
 
             [Fact]
             public void When_a_offset_time_does_not_have_the_specified_clock_hour_of_half_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int time = offsetTime.With(time => time.PlusHours(1)).ClockHourOfHalfDay;
 
                 // Act
@@ -602,7 +612,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have clock hour of the half-day of {time}, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have clock hour of the half-day of {time}, but found <null>.");
             }
         }
 
@@ -612,7 +623,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_hour_of_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().HaveHour(offsetTime.Hour);
@@ -625,7 +637,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_hour_of_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int hourOfDay = offsetTime.With(time => time.PlusHours(1)).Hour;
 
                 // Act
@@ -659,7 +672,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_hour_of_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().NotHaveHour(offsetTime.Hour);
@@ -673,7 +687,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_hour_of_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int hourOfDay = offsetTime.With(time => time.PlusHours(1)).Hour;
 
                 // Act
@@ -706,7 +721,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_millisecond_of_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().HaveMillisecond(offsetTime.Millisecond);
@@ -719,7 +735,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_millisecond_of_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int millisecondOfDay = offsetTime.With(time => time.PlusMilliseconds(1)).Millisecond;
 
                 // Act
@@ -727,7 +744,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have millisecond {millisecondOfDay}, but found {offsetTime.Millisecond}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have millisecond {millisecondOfDay}, but found {offsetTime.Millisecond}.");
             }
 
             [Fact]
@@ -753,7 +771,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_millisecond_of_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().NotHaveMillisecond(offsetTime.Millisecond);
@@ -767,7 +786,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_millisecond_of_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int millisecondOfDay = offsetTime.With(time => time.PlusMilliseconds(1)).Millisecond;
 
                 // Act
@@ -790,7 +810,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have millisecond {millisecondOfDay}, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have millisecond {millisecondOfDay}, but found <null>.");
             }
         }
 
@@ -800,7 +821,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_minute_of_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().HaveMinute(offsetTime.Minute);
@@ -813,7 +835,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_minute_of_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int minuteOfDay = offsetTime.With(time => time.PlusMinutes(1)).Minute;
 
                 // Act
@@ -847,7 +870,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_minute_of_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().NotHaveMinute(offsetTime.Minute);
@@ -861,7 +885,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_minute_of_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int minuteOfDay = offsetTime.With(time => time.PlusMinutes(1)).Minute;
 
                 // Act
@@ -894,7 +919,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_nanoseconds_within_the_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().HaveNanosecondsWithinDay(offsetTime.NanosecondOfDay);
@@ -907,7 +933,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_nanoseconds_within_the_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 long nanosecondOfDay = offsetTime.With(time => time.PlusNanoseconds(1)).NanosecondOfDay;
 
                 // Act
@@ -915,7 +942,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found {offsetTime.NanosecondOfDay.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found {offsetTime.NanosecondOfDay.AsFormatted()}.");
             }
 
             [Fact]
@@ -931,7 +959,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found <null>.");
             }
         }
 
@@ -941,21 +970,24 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_nanoseconds_within_the_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().NotHaveNanosecondsWithinDay(offsetTime.NanosecondOfDay);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have {offsetTime.NanosecondOfDay.AsFormatted()} nanoseconds within the day.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have {offsetTime.NanosecondOfDay.AsFormatted()} nanoseconds within the day.");
             }
 
             [Fact]
             public void When_a_offset_time_does_not_have_the_specified_nanoseconds_within_the_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 long nanosecondOfDay = offsetTime.With(time => time.PlusNanoseconds(1)).NanosecondOfDay;
 
                 // Act
@@ -978,7 +1010,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have {nanosecondOfDay.AsFormatted()} nanoseconds within the day, but found <null>.");
             }
         }
 
@@ -988,7 +1021,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_nanoseconds_within_the_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().HaveNanosecondsWithinSecond(offsetTime.NanosecondOfSecond);
@@ -1001,7 +1035,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_nanoseconds_within_the_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int nanosecondOfSecond = offsetTime.With(time => time.PlusNanoseconds(1)).NanosecondOfSecond;
 
                 // Act
@@ -1009,7 +1044,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found {offsetTime.NanosecondOfSecond}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found {offsetTime.NanosecondOfSecond}.");
             }
 
             [Fact]
@@ -1025,7 +1061,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found <null>.");
             }
         }
 
@@ -1035,21 +1072,24 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_nanoseconds_within_the_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().NotHaveNanosecondsWithinSecond(offsetTime.NanosecondOfSecond);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have {offsetTime.NanosecondOfSecond} nanoseconds within the second.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have {offsetTime.NanosecondOfSecond} nanoseconds within the second.");
             }
 
             [Fact]
             public void When_a_offset_time_does_not_have_the_specified_nanoseconds_within_the_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int nanosecondOfSecond = offsetTime.With(time => time.PlusNanoseconds(1)).NanosecondOfSecond;
 
                 // Act
@@ -1072,7 +1112,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have {nanosecondOfSecond} nanoseconds within the second, but found <null>.");
             }
         }
 
@@ -1082,7 +1123,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_second_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().HaveSecond(offsetTime.Second);
@@ -1095,7 +1137,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_second_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int second = offsetTime.With(time => time.PlusSeconds(1)).Second;
 
                 // Act
@@ -1129,7 +1172,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_second_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().NotHaveSecond(offsetTime.Second);
@@ -1143,7 +1187,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_second_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int second = offsetTime.With(time => time.PlusSeconds(1)).Second;
 
                 // Act
@@ -1176,7 +1221,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_ticks_within_the_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().HaveTicksWithinDay(offsetTime.TickOfDay);
@@ -1189,7 +1235,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_ticks_within_the_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 long tickOfDay = offsetTime.With(time => time.PlusTicks(1)).TickOfDay;
 
                 // Act
@@ -1197,7 +1244,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found {offsetTime.TickOfDay.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found {offsetTime.TickOfDay.AsFormatted()}.");
             }
 
             [Fact]
@@ -1213,7 +1261,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found <null>.");
             }
         }
 
@@ -1223,21 +1272,24 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_ticks_within_the_day_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().NotHaveTicksWithinDay(offsetTime.TickOfDay);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have {offsetTime.TickOfDay.AsFormatted()} ticks within the day.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have {offsetTime.TickOfDay.AsFormatted()} ticks within the day.");
             }
 
             [Fact]
             public void When_a_offset_time_does_not_have_the_specified_ticks_within_the_day_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 long tickOfDay = offsetTime.With(time => time.PlusTicks(1)).TickOfDay;
 
                 // Act
@@ -1260,7 +1312,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have {tickOfDay.AsFormatted()} ticks within the day, but found <null>.");
             }
         }
 
@@ -1270,7 +1323,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_tick_of_second_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().HaveTicksWithinSecond(offsetTime.TickOfSecond);
@@ -1283,7 +1337,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_does_not_have_the_specified_tick_of_second_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int tickOfSecond = offsetTime.With(time => time.PlusTicks(1)).TickOfSecond;
 
                 // Act
@@ -1291,7 +1346,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have {tickOfSecond} ticks within the second, but found {offsetTime.TickOfSecond}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have {tickOfSecond} ticks within the second, but found {offsetTime.TickOfSecond}.");
             }
 
             [Fact]
@@ -1307,7 +1363,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetTime)} to have {tickOfSecond} ticks within the second, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetTime)} to have {tickOfSecond} ticks within the second, but found <null>.");
             }
         }
 
@@ -1317,21 +1374,24 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_time_has_the_specified_tick_of_second_it_fails()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
 
                 // Act
                 Action act = () => offsetTime.Should().NotHaveTicksWithinSecond(offsetTime.TickOfSecond);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have {offsetTime.TickOfSecond} ticks within the second.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have {offsetTime.TickOfSecond} ticks within the second.");
             }
 
             [Fact]
             public void When_a_offset_time_does_not_have_the_specified_tick_of_second_it_succeeds()
             {
                 // Arrange
-                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks).WithOffset(Offset.FromHours(2));
+                OffsetTime offsetTime = LocalTime.FromTicksSinceMidnight(DateTime.Now.TimeOfDay.Ticks)
+                    .WithOffset(Offset.FromHours(2));
                 int tickOfSecond = offsetTime.With(time => time.PlusTicks(1)).TickOfSecond;
 
                 // Act
@@ -1354,7 +1414,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetTime)} to have {tickOfSecond} ticks within the second, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetTime)} to have {tickOfSecond} ticks within the second, but found <null>.");
             }
         }
     }

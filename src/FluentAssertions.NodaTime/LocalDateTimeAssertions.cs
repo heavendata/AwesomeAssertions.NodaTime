@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
-
 using NodaTime;
 using NodaTime.Calendars;
 
@@ -19,14 +17,18 @@ namespace FluentAssertions.NodaTime
         ///     Initializes a new <see cref="LocalDateTimeAssertions" />.
         /// </summary>
         /// <param name="subject">The <see cref="LocalDateTime" /> that is being asserted.</param>
-        public LocalDateTimeAssertions(LocalDateTime? subject)
-            : base(subject)
+        /// <param name="chain">Assertion chain</param>
+        public LocalDateTimeAssertions(LocalDateTime? subject, AssertionChain chain)
+            : base(subject, chain)
         {
         }
 
         /// <inheritdoc />
         [ExcludeFromCodeCoverage]
-        protected override string Identifier => "LocalDateTime";
+        protected override string Identifier
+        {
+            get => "LocalDateTime";
+        }
 
         /// <summary>
         ///     Asserts that this <see cref="LocalDateTime" /> is equal to <paramref name="other" />.
@@ -45,12 +47,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> Be(LocalDateTime? other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(Nullable.Equals(Subject, other))
                 .FailWith("Expected {context:LocalDateTime} to be equal to {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -68,10 +70,8 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> Be(DateTime? dateTime, string because = "", params object[] becauseArgs)
-        {
-            return Be(dateTime.HasValue ? LocalDateTime.FromDateTime(dateTime.Value) : null, because, becauseArgs);
-        }
+        public AndConstraint<LocalDateTimeAssertions> Be(DateTime? dateTime, string because = "", params object[] becauseArgs) =>
+            Be(dateTime.HasValue ? LocalDateTime.FromDateTime(dateTime.Value) : null, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="LocalDateTime" /> is equal to <paramref name="dateTime" /> in <paramref name="calendar" />.
@@ -89,10 +89,9 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> Be(DateTime? dateTime, CalendarSystem calendar, string because = "", params object[] becauseArgs)
-        {
-            return Be(dateTime.HasValue ? LocalDateTime.FromDateTime(dateTime.Value, calendar) : null, because, becauseArgs);
-        }
+        public AndConstraint<LocalDateTimeAssertions> Be(DateTime? dateTime, CalendarSystem calendar, string because = "",
+            params object[] becauseArgs) => Be(dateTime.HasValue ? LocalDateTime.FromDateTime(dateTime.Value, calendar) : null,
+            because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="LocalDateTime" /> is not equal to <paramref name="other" />.
@@ -112,12 +111,12 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotBe(LocalDateTime? other, string because = "",
             params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(!Nullable.Equals(Subject, other))
                 .FailWith("Did not expect {context:LocalDateTime} to be equal to {0}{reason}.", other, Subject);
 
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -135,10 +134,9 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> NotBe(DateTime? dateTime, string because = "", params object[] becauseArgs)
-        {
-            return NotBe(dateTime.HasValue ? LocalDateTime.FromDateTime(dateTime.Value) : null, because, becauseArgs);
-        }
+        public AndConstraint<LocalDateTimeAssertions>
+            NotBe(DateTime? dateTime, string because = "", params object[] becauseArgs) =>
+            NotBe(dateTime.HasValue ? LocalDateTime.FromDateTime(dateTime.Value) : null, because, becauseArgs);
 
         /// <summary>
         ///     Asserts that this <see cref="LocalDateTime" /> is not equal to <paramref name="dateTime" /> in <paramref name="calendar" />.
@@ -156,10 +154,9 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> NotBe(DateTime? dateTime, CalendarSystem calendar, string because = "", params object[] becauseArgs)
-        {
-            return NotBe(dateTime.HasValue ? LocalDateTime.FromDateTime(dateTime.Value, calendar) : null, because, becauseArgs);
-        }
+        public AndConstraint<LocalDateTimeAssertions> NotBe(DateTime? dateTime, CalendarSystem calendar, string because = "",
+            params object[] becauseArgs) => NotBe(dateTime.HasValue ? LocalDateTime.FromDateTime(dateTime.Value, calendar) : null,
+            because, becauseArgs);
 
         /// <summary>
         ///     Asserts that the current <see cref="LocalDateTime" /> has the specified <see cref="CalendarSystem" />.
@@ -175,32 +172,32 @@ namespace FluentAssertions.NodaTime
         ///     Zero or more objects to format using the placeholders in <paramref name="because" />.
         /// </param>
         /// <returns>
-        ///     An <see cref="AndWhichConstraint{TParentConstraint, TMatchedElement}">AndWhichConstraint&lt;LocalDateTimeAssertions, CalendarSystem&gt;</see>
+        ///     An
+        ///     <see cref="AndWhichConstraint{TParentConstraint, TMatchedElement}">
+        ///         AndWhichConstraint&lt;LocalDateTimeAssertions,
+        ///         CalendarSystem&gt;
+        ///     </see>
         ///     which can be used to assert the <see cref="CalendarSystem" />.
         /// </returns>
         [CustomAssertion]
         public AndWhichConstraint<LocalDateTimeAssertions, CalendarSystem> BeInCalendar(CalendarSystem calendar,
             string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to be in calendar {0}{reason}", calendar);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to be in calendar {0}{reason}", calendar, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Calendar.Equals(calendar))
+                            .FailWith(", but found {0}.", Subject.Value.Calendar);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Calendar.Equals(calendar))
-                    .FailWith(", but found {0}.", Subject.Value.Calendar);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndWhichConstraint<LocalDateTimeAssertions, CalendarSystem>(this, calendar);
+            return new(this, calendar);
         }
 
         /// <summary>
@@ -223,25 +220,21 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotBeInCalendar(CalendarSystem calendar, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to be in calendar {0}{reason}", calendar);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to be in calendar {0}{reason}", calendar, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Calendar.Equals(calendar))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Calendar.Equals(calendar))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -258,32 +251,32 @@ namespace FluentAssertions.NodaTime
         ///     Zero or more objects to format using the placeholders in <paramref name="because" />.
         /// </param>
         /// <returns>
-        ///     An <see cref="AndWhichConstraint{TParentConstraint, TMatchedElement}">AndWhichConstraint&lt;LocalDateTimeAssertions, LocalDate&gt;</see>
+        ///     An
+        ///     <see cref="AndWhichConstraint{TParentConstraint, TMatchedElement}">
+        ///         AndWhichConstraint&lt;LocalDateTimeAssertions, LocalDate
+        ///         &gt;
+        ///     </see>
         ///     which can be used to assert the <see cref="LocalDate" />.
         /// </returns>
         [CustomAssertion]
         public AndWhichConstraint<LocalDateTimeAssertions, LocalDate> HaveDate(LocalDate date, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have date {0}{reason}", date);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have date {0}{reason}", date, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Date.Equals(date))
+                            .FailWith(", but found {0}.", Subject.Value.Date);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Date.Equals(date))
-                    .FailWith(", but found {0}.", Subject.Value.Date);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndWhichConstraint<LocalDateTimeAssertions, LocalDate>(this, date);
+            return new(this, date);
         }
 
         /// <summary>
@@ -306,25 +299,21 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveDate(LocalDate date, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have date {0}{reason}", date);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have date {0}{reason}", date, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Date.Equals(date))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Date.Equals(date))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -341,32 +330,32 @@ namespace FluentAssertions.NodaTime
         ///     Zero or more objects to format using the placeholders in <paramref name="because" />.
         /// </param>
         /// <returns>
-        ///     An <see cref="AndWhichConstraint{TParentConstraint, TMatchedElement}">AndWhichConstraint&lt;LocalDateTimeAssertions, LocalTime&gt;</see>
+        ///     An
+        ///     <see cref="AndWhichConstraint{TParentConstraint, TMatchedElement}">
+        ///         AndWhichConstraint&lt;LocalDateTimeAssertions, LocalTime
+        ///         &gt;
+        ///     </see>
         ///     which can be used to assert the <see cref="LocalTime" />.
         /// </returns>
         [CustomAssertion]
         public AndWhichConstraint<LocalDateTimeAssertions, LocalTime> HaveTimeOfDay(LocalTime timeOfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have time of day {0}{reason}", timeOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have time of day {0}{reason}", timeOfDay, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.TimeOfDay.Equals(timeOfDay))
+                            .FailWith(", but found {0}.", Subject.Value.TimeOfDay);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TimeOfDay.Equals(timeOfDay))
-                    .FailWith(", but found {0}.", Subject.Value.TimeOfDay);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndWhichConstraint<LocalDateTimeAssertions, LocalTime>(this, timeOfDay);
+            return new(this, timeOfDay);
         }
 
         /// <summary>
@@ -389,25 +378,21 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveTimeOfDay(LocalTime timeOfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have time of day {0}{reason}", timeOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have time of day {0}{reason}", timeOfDay, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.TimeOfDay.Equals(timeOfDay))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TimeOfDay.Equals(timeOfDay))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -430,26 +415,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> HaveClockHourOfHalfDay(int clockHourOfHalfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have clock hour of the half-day of {0}{reason}",
-                        clockHourOfHalfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have clock hour of the half-day of {0}{reason}",
+                    clockHourOfHalfDay, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.ClockHourOfHalfDay.Equals(clockHourOfHalfDay))
+                                .FailWith(", but found {0}.", Subject.Value.ClockHourOfHalfDay);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.ClockHourOfHalfDay.Equals(clockHourOfHalfDay))
-                    .FailWith(", but found {0}.", Subject.Value.ClockHourOfHalfDay);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -472,26 +453,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveClockHourOfHalfDay(int clockHourOfHalfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have clock hour of the half-day of {0}{reason}",
-                        clockHourOfHalfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have clock hour of the half-day of {0}{reason}",
+                    clockHourOfHalfDay, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.ClockHourOfHalfDay.Equals(clockHourOfHalfDay))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.ClockHourOfHalfDay.Equals(clockHourOfHalfDay))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -513,25 +490,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> HaveDay(int day, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have day {0}{reason}", day);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have day {0}{reason}", day, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Day.Equals(day))
+                            .FailWith(", but found {0}.", Subject.Value.Day);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Day.Equals(day))
-                    .FailWith(", but found {0}.", Subject.Value.Day);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -553,25 +526,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> NotHaveDay(int day, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have day {0}{reason}", day);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have day {0}{reason}", day, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Day.Equals(day))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Day.Equals(day))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -594,25 +563,21 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> HaveDayOfWeek(IsoDayOfWeek dayOfWeek, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have day of week {0}{reason}", dayOfWeek);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have day of week {0}{reason}", dayOfWeek, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.DayOfWeek.Equals(dayOfWeek))
+                            .FailWith(", but found {0}.", Subject.Value.DayOfWeek);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.DayOfWeek.Equals(dayOfWeek))
-                    .FailWith(", but found {0}.", Subject.Value.DayOfWeek);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -635,25 +600,21 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveDayOfWeek(IsoDayOfWeek dayOfWeek, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have day of week {0}{reason}", dayOfWeek);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have day of week {0}{reason}", dayOfWeek, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.DayOfWeek.Equals(dayOfWeek))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.DayOfWeek.Equals(dayOfWeek))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -676,25 +637,21 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> HaveDayOfYear(int dayOfYear, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have day of year {0}{reason}", dayOfYear);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have day of year {0}{reason}", dayOfYear, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.DayOfYear.Equals(dayOfYear))
+                            .FailWith(", but found {0}.", Subject.Value.DayOfYear);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.DayOfYear.Equals(dayOfYear))
-                    .FailWith(", but found {0}.", Subject.Value.DayOfYear);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -717,25 +674,21 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveDayOfYear(int dayOfYear, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have day of year {0}{reason}", dayOfYear);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have day of year {0}{reason}", dayOfYear, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.DayOfYear.Equals(dayOfYear))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.DayOfYear.Equals(dayOfYear))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -757,25 +710,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> HaveHour(int hourOfDay, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have hour of day {0}{reason}", hourOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have hour of day {0}{reason}", hourOfDay, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Hour.Equals(hourOfDay))
+                            .FailWith(", but found {0}.", Subject.Value.Hour);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Hour.Equals(hourOfDay))
-                    .FailWith(", but found {0}.", Subject.Value.Hour);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -797,25 +746,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> NotHaveHour(int hourOfDay, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have hour of day {0}{reason}", hourOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have hour of day {0}{reason}", hourOfDay, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Hour.Equals(hourOfDay))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Hour.Equals(hourOfDay))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -837,25 +782,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> HaveYear(int year, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have year {0}{reason}", year);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have year {0}{reason}", year, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Year.Equals(year))
+                            .FailWith(", but found {0}.", Subject.Value.Year);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Year.Equals(year))
-                    .FailWith(", but found {0}.", Subject.Value.Year);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -877,25 +818,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> NotHaveYear(int year, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have year {0}{reason}", year);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have year {0}{reason}", year, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Year.Equals(year))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Year.Equals(year))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -917,25 +854,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> HaveSecond(int second, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have second {0}{reason}", second);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have second {0}{reason}", second, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Second.Equals(second))
+                            .FailWith(", but found {0}.", Subject.Value.Second);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Second.Equals(second))
-                    .FailWith(", but found {0}.", Subject.Value.Second);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -957,25 +890,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> NotHaveSecond(int second, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have second {0}{reason}", second);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have second {0}{reason}", second, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Second.Equals(second))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Second.Equals(second))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+           return new(this);
         }
 
         /// <summary>
@@ -997,25 +926,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> HaveMonth(int month, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have month {0}{reason}", month);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have month {0}{reason}", month, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Month.Equals(month))
+                            .FailWith(", but found {0}.", Subject.Value.Month);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Month.Equals(month))
-                    .FailWith(", but found {0}.", Subject.Value.Month);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1037,25 +962,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> NotHaveMonth(int month, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have month {0}{reason}", month);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have month {0}{reason}", month, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Month.Equals(month))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Month.Equals(month))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1077,25 +998,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> HaveMinute(int minute, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have minute {0}{reason}", minute);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have minute {0}{reason}", minute, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Minute.Equals(minute))
+                            .FailWith(", but found {0}.", Subject.Value.Minute);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Minute.Equals(minute))
-                    .FailWith(", but found {0}.", Subject.Value.Minute);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1117,25 +1034,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> NotHaveMinute(int minute, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have minute {0}{reason}", minute);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have minute {0}{reason}", minute, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Minute.Equals(minute))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Minute.Equals(minute))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1158,25 +1071,21 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> HaveMillisecond(int millisecond, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have millisecond {0}{reason}", millisecond);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have millisecond {0}{reason}", millisecond, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Millisecond.Equals(millisecond))
+                            .FailWith(", but found {0}.", Subject.Value.Millisecond);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Millisecond.Equals(millisecond))
-                    .FailWith(", but found {0}.", Subject.Value.Millisecond);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1199,25 +1108,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveMillisecond(int millisecond, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have millisecond {0}{reason}", millisecond);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have millisecond {0}{reason}", millisecond,
+                    chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.Millisecond.Equals(millisecond))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Millisecond.Equals(millisecond))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1240,25 +1146,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> HaveNanosecondsWithinDay(long nanosecondOfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have {0} nanoseconds within the day{reason}", nanosecondOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have {0} nanoseconds within the day{reason}",
+                    nanosecondOfDay, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.NanosecondOfDay.Equals(nanosecondOfDay))
+                                .FailWith(", but found {0}.", Subject.Value.NanosecondOfDay);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.NanosecondOfDay.Equals(nanosecondOfDay))
-                    .FailWith(", but found {0}.", Subject.Value.NanosecondOfDay);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1281,26 +1184,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveNanosecondsWithinDay(long nanosecondOfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have {0} nanoseconds within the day{reason}",
-                        nanosecondOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have {0} nanoseconds within the day{reason}",
+                    nanosecondOfDay, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.NanosecondOfDay.Equals(nanosecondOfDay))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.NanosecondOfDay.Equals(nanosecondOfDay))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1320,27 +1219,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> HaveNanosecondsWithinSecond(int nanosecondOfSecond, string because = "", params object[] becauseArgs)
+        public AndConstraint<LocalDateTimeAssertions> HaveNanosecondsWithinSecond(int nanosecondOfSecond, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have {0} nanoseconds within the second{reason}", nanosecondOfSecond);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have {0} nanoseconds within the second{reason}",
+                    nanosecondOfSecond, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.NanosecondOfSecond.Equals(nanosecondOfSecond))
+                                .FailWith(", but found {0}.", Subject.Value.NanosecondOfSecond);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.NanosecondOfSecond.Equals(nanosecondOfSecond))
-                    .FailWith(", but found {0}.", Subject.Value.NanosecondOfSecond);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1360,27 +1257,25 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> NotHaveNanosecondsWithinSecond(int nanosecondOfSecond, string because = "", params object[] becauseArgs)
+        public AndConstraint<LocalDateTimeAssertions> NotHaveNanosecondsWithinSecond(int nanosecondOfSecond, string because = "",
+            params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have {0} nanoseconds within the second{reason}", nanosecondOfSecond);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have {0} nanoseconds within the second{reason}",
+                    nanosecondOfSecond, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.NanosecondOfSecond.Equals(nanosecondOfSecond))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.NanosecondOfSecond.Equals(nanosecondOfSecond))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1403,25 +1298,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> HaveTicksWithinSecond(int tickOfSecond, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have {0} ticks within the second{reason}", tickOfSecond);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have {0} ticks within the second{reason}",
+                    tickOfSecond, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.TickOfSecond.Equals(tickOfSecond))
+                                .FailWith(", but found {0}.", Subject.Value.TickOfSecond);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TickOfSecond.Equals(tickOfSecond))
-                    .FailWith(", but found {0}.", Subject.Value.TickOfSecond);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1444,25 +1336,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveTicksWithinSecond(int tickOfSecond, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have {0} ticks within the second{reason}", tickOfSecond);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have {0} ticks within the second{reason}",
+                    tickOfSecond, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.TickOfSecond.Equals(tickOfSecond))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TickOfSecond.Equals(tickOfSecond))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1485,25 +1374,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> HaveTicksWithinDay(long tickOfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have {0} ticks within the day{reason}", tickOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have {0} ticks within the day{reason}", tickOfDay,
+                    chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.TickOfDay.Equals(tickOfDay))
+                                .FailWith(", but found {0}.", Subject.Value.TickOfDay);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.TickOfDay.Equals(tickOfDay))
-                    .FailWith(", but found {0}.", Subject.Value.TickOfDay);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1526,25 +1412,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveTicksWithinDay(long tickOfDay, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have {0} ticks within the day{reason}", tickOfDay);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have {0} ticks within the day{reason}",
+                    tickOfDay, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.TickOfDay.Equals(tickOfDay))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.TickOfDay.Equals(tickOfDay))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1567,25 +1450,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> HaveYearWithinEra(int yearOfEra, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have {0} as the year within the era{reason}", yearOfEra);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have {0} as the year within the era{reason}",
+                    yearOfEra, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(Subject.Value.YearOfEra.Equals(yearOfEra))
+                                .FailWith(", but found {0}.", Subject.Value.YearOfEra);
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.YearOfEra.Equals(yearOfEra))
-                    .FailWith(", but found {0}.", Subject.Value.YearOfEra);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1608,25 +1488,22 @@ namespace FluentAssertions.NodaTime
         public AndConstraint<LocalDateTimeAssertions> NotHaveYearWithinEra(int yearOfEra, string because = "",
             params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have {0} as the year within the era{reason}", yearOfEra);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have {0} as the year within the era{reason}",
+                    yearOfEra, chain =>
+                    {
+                        if (Subject.HasValue)
+                            chain
+                                .ForCondition(!Subject.Value.YearOfEra.Equals(yearOfEra))
+                                .FailWith(".");
+                        else
+                            chain
+                                .ForCondition(false)
+                                .FailWith(", but found <null>.");
+                    });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.YearOfEra.Equals(yearOfEra))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1648,25 +1525,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> HaveEra(Era era, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:LocalDateTime} to have era {0}{reason}", era);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:LocalDateTime} to have era {0}{reason}", era, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Era.Equals(era))
+                            .FailWith(", but found {0}.", Subject.Value.Era);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Era.Equals(era))
-                    .FailWith(", but found {0}.", Subject.Value.Era);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1688,25 +1561,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<LocalDateTimeAssertions> NotHaveEra(Era era, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:LocalDateTime} to have era {0}{reason}", era);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:LocalDateTime} to have era {0}{reason}", era, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Era.Equals(era))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Era.Equals(era))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1724,14 +1593,15 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> BeGreaterThan(LocalDateTime other, string because = "", params object[] becauseArgs)
+        public AndConstraint<LocalDateTimeAssertions> BeGreaterThan(LocalDateTime other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject > other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:LocalDateTime} to be greater than {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1749,14 +1619,16 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> BeGreaterThanOrEqualTo(LocalDateTime other, string because = "", params object[] becauseArgs)
+        public AndConstraint<LocalDateTimeAssertions> BeGreaterThanOrEqualTo(LocalDateTime other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject >= other)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:LocalDateTime} to be greater than or equal to {0}{reason}, but found {1}.", other, Subject);
+                .FailWith("Expected {context:LocalDateTime} to be greater than or equal to {0}{reason}, but found {1}.", other,
+                    Subject);
 
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1774,14 +1646,15 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> BeLessThan(LocalDateTime other, string because = "", params object[] becauseArgs)
+        public AndConstraint<LocalDateTimeAssertions> BeLessThan(LocalDateTime other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject < other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:LocalDateTime} to be less than {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -1799,14 +1672,16 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateTimeAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateTimeAssertions> BeLessThanOrEqualTo(LocalDateTime other, string because = "", params object[] becauseArgs)
+        public AndConstraint<LocalDateTimeAssertions> BeLessThanOrEqualTo(LocalDateTime other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject <= other)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:LocalDateTime} to be less than or equal to {0}{reason}, but found {1}.", other, Subject);
+                .FailWith("Expected {context:LocalDateTime} to be less than or equal to {0}{reason}, but found {1}.", other,
+                    Subject);
 
-            return new AndConstraint<LocalDateTimeAssertions>(this);
+            return new(this);
         }
     }
 }

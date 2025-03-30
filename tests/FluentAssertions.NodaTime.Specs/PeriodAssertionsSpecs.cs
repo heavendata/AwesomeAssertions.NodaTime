@@ -1,9 +1,6 @@
 ﻿using System;
-
 using FluentAssertions.NodaTime.Specs.Extensions;
-
 using NodaTime;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -440,7 +437,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(period)} to have {seconds.AsFormatted()} seconds, but found {period.Seconds.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(period)} to have {seconds.AsFormatted()} seconds, but found {period.Seconds.AsFormatted()}.");
             }
 
             [Fact]
@@ -1285,7 +1283,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(period)} to have {minutes.AsFormatted()} minutes, but found {period.Minutes.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(period)} to have {minutes.AsFormatted()} minutes, but found {period.Minutes.AsFormatted()}.");
             }
 
             [Fact]

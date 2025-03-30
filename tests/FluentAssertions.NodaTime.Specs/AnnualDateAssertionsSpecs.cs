@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using NodaTime;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -17,8 +15,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
-                AnnualDate other = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
+                AnnualDate other = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().Be(other);
@@ -32,7 +30,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().Be(annualDate);
@@ -63,7 +61,7 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
                 AnnualDate? annualDate = default;
-                AnnualDate other = new AnnualDate(now.Month, 1);
+                AnnualDate other = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().Be(other);
@@ -79,7 +77,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
                 AnnualDate? other = default;
 
                 // Act
@@ -95,8 +93,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(-1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(-1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().Be(other);
@@ -111,8 +109,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().Be(other);
@@ -130,8 +128,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(-1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(-1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().NotBe(other);
@@ -145,8 +143,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().NotBe(other);
@@ -160,8 +158,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
-                AnnualDate other = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
+                AnnualDate other = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().NotBe(other);
@@ -176,7 +174,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().NotBe(annualDate);
@@ -209,7 +207,7 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
                 AnnualDate? annualDate = default;
-                AnnualDate other = new AnnualDate(now.Month, 1);
+                AnnualDate other = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().NotBe(other);
@@ -224,7 +222,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
                 AnnualDate? other = default;
 
                 // Act
@@ -242,8 +240,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeGreaterThan(other);
@@ -257,8 +255,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(-1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(-1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeGreaterThan(other);
@@ -273,8 +271,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeGreaterThan(other);
@@ -289,7 +287,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeGreaterThan(annualDate);
@@ -307,7 +305,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeGreaterThanOrEqualTo(annualDate);
@@ -321,8 +319,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
-                AnnualDate other = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
+                AnnualDate other = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeGreaterThanOrEqualTo(other);
@@ -336,8 +334,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeGreaterThanOrEqualTo(other);
@@ -351,15 +349,16 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(-1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(-1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeGreaterThanOrEqualTo(other);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(annualDate)} to be greater than or equal to {other}, but found {annualDate}.");
+                    .WithMessage(
+                        $"Expected {nameof(annualDate)} to be greater than or equal to {other}, but found {annualDate}.");
             }
         }
 
@@ -370,8 +369,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(-1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(-1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeLessThan(other);
@@ -385,8 +384,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeLessThan(other);
@@ -401,8 +400,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeLessThan(other);
@@ -417,7 +416,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeLessThan(annualDate);
@@ -435,7 +434,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeLessThanOrEqualTo(annualDate);
@@ -449,8 +448,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeLessThanOrEqualTo(other);
@@ -464,8 +463,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(-1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(-1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeLessThanOrEqualTo(other);
@@ -479,8 +478,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate other = new AnnualDate(now.Month, 1);
-                AnnualDate annualDate = new AnnualDate(now.AddMonths(1).Month, 1);
+                AnnualDate other = new(now.Month, 1);
+                AnnualDate annualDate = new(now.AddMonths(1).Month, 1);
 
                 // Act
                 Action act = () => annualDate.Should().BeLessThanOrEqualTo(other);
@@ -498,7 +497,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
 
                 // Act
                 Action act = () => annualDate.Should().BeValidInYear(now.Year);
@@ -512,7 +511,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 const int nonLeapYear = 2021;
-                AnnualDate annualDate = new AnnualDate(2, 29);
+                AnnualDate annualDate = new(2, 29);
 
                 // Act
                 Action act = () => annualDate.Should().BeValidInYear(nonLeapYear);
@@ -545,7 +544,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
 
                 // Act
                 Action act = () => annualDate.Should().NotBeValidInYear(now.Year);
@@ -560,7 +559,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 const int nonLeapYear = 2021;
-                AnnualDate annualDate = new AnnualDate(2, 29);
+                AnnualDate annualDate = new(2, 29);
 
                 // Act
                 Action act = () => annualDate.Should().NotBeValidInYear(nonLeapYear);
@@ -584,6 +583,7 @@ namespace FluentAssertions.NodaTime.Specs
                     .WithMessage($"Did not expect {nameof(annualDate)} to be valid in year {year}, but found <null>.");
             }
         }
+
         public class HaveDay
         {
             [Fact]
@@ -591,7 +591,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
 
                 // Act
                 Action act = () => annualDate.Should().HaveDay(annualDate.Day);
@@ -605,7 +605,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
                 int day = annualDate.Day + 1;
 
                 // Act
@@ -640,7 +640,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
 
                 // Act
                 Action act = () => annualDate.Should().NotHaveDay(annualDate.Day);
@@ -655,7 +655,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
                 int day = annualDate.Day + 1;
 
                 // Act
@@ -689,7 +689,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
 
                 // Act
                 Action act = () => annualDate.Should().HaveMonth(annualDate.Month);
@@ -703,7 +703,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
                 int month = annualDate.Month + 1;
 
                 // Act
@@ -738,7 +738,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
 
                 // Act
                 Action act = () => annualDate.Should().NotHaveMonth(annualDate.Month);
@@ -753,7 +753,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                AnnualDate annualDate = new AnnualDate(now.Month, now.Day);
+                AnnualDate annualDate = new(now.Month, now.Day);
                 int month = annualDate.Month + 1;
 
                 // Act

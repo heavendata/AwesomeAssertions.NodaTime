@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.NodaTime.Specs.Extensions;
-
 using NodaTime;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -12,10 +9,7 @@ namespace FluentAssertions.NodaTime.Specs
 {
     public static class DateIntervalAssertionsSpecs
     {
-        private static CalendarSystem RandomCalendarSystem()
-        {
-            return CalendarSystem.ForId(CalendarSystem.Ids.Random());
-        }
+        private static CalendarSystem RandomCalendarSystem() => CalendarSystem.ForId(CalendarSystem.Ids.Random());
 
         private static (CalendarSystem first, CalendarSystem second) TwoRandomCalendarSystems()
         {
@@ -33,8 +27,8 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
-                DateInterval other = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
+                DateInterval other = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().Be(other);
@@ -50,7 +44,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().Be(dateInterval);
@@ -83,7 +77,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval other = new DateInterval(start, end);
+                DateInterval other = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().Be(other);
@@ -101,7 +95,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
                 DateInterval? other = default;
 
                 // Act
@@ -116,8 +110,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_is_not_equal_to_an_other_date_interval_it_fails()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
-                DateInterval other = new DateInterval(LocalDate.MaxIsoValue, LocalDate.MaxIsoValue);
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
+                DateInterval other = new(LocalDate.MaxIsoValue, LocalDate.MaxIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().Be(other);
@@ -134,7 +128,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
                 int days = dateInterval.Length;
 
                 // Act
@@ -151,7 +145,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
                 int days = dateInterval.Length + 1;
 
                 // Act
@@ -188,8 +182,8 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
-                DateInterval other = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
+                DateInterval other = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().NotBe(other);
@@ -206,7 +200,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().NotBe(dateInterval);
@@ -241,7 +235,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval other = new DateInterval(start, end);
+                DateInterval other = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().NotBe(other);
@@ -258,7 +252,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
                 DateInterval? other = default;
 
                 // Act
@@ -272,8 +266,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_is_not_equal_to_an_other_date_interval_it_succeeds()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
-                DateInterval other = new DateInterval(LocalDate.MaxIsoValue, LocalDate.MaxIsoValue);
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
+                DateInterval other = new(LocalDate.MaxIsoValue, LocalDate.MaxIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().NotBe(other);
@@ -289,7 +283,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
                 int days = dateInterval.Length;
 
                 // Act
@@ -307,7 +301,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTime now = DateTime.Now;
                 LocalDate start = LocalDate.FromDateTime(now.AddDays(-1));
                 LocalDate end = LocalDate.FromDateTime(now.AddDays(1));
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
                 int days = dateInterval.Length + 1;
 
                 // Act
@@ -343,7 +337,7 @@ namespace FluentAssertions.NodaTime.Specs
                 CalendarSystem calendar = RandomCalendarSystem();
                 LocalDate start = LocalDate.FromDateTime(DateTime.Now, calendar);
                 LocalDate end = LocalDate.FromDateTime(DateTime.Now.AddDays(1), start.Calendar);
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().BeInCalendar(calendar);
@@ -359,7 +353,7 @@ namespace FluentAssertions.NodaTime.Specs
                 CalendarSystem calendar = RandomCalendarSystem();
                 LocalDate start = LocalDate.FromDateTime(DateTime.Now, calendar);
                 LocalDate end = LocalDate.FromDateTime(DateTime.Now.AddDays(1), start.Calendar);
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
 
                 // Act
                 CalendarSystem returned = dateInterval.Should().BeInCalendar(calendar).Which;
@@ -375,7 +369,7 @@ namespace FluentAssertions.NodaTime.Specs
                 (CalendarSystem calendar, CalendarSystem other) = TwoRandomCalendarSystems();
                 LocalDate start = LocalDate.FromDateTime(DateTime.Now, calendar);
                 LocalDate end = LocalDate.FromDateTime(DateTime.Now.AddDays(1), calendar);
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().BeInCalendar(other);
@@ -411,7 +405,7 @@ namespace FluentAssertions.NodaTime.Specs
                 (CalendarSystem calendar, CalendarSystem other) = TwoRandomCalendarSystems();
                 LocalDate start = LocalDate.FromDateTime(DateTime.Now, calendar);
                 LocalDate end = LocalDate.FromDateTime(DateTime.Now.AddDays(1), calendar);
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().NotBeInCalendar(other);
@@ -427,7 +421,7 @@ namespace FluentAssertions.NodaTime.Specs
                 CalendarSystem calendar = RandomCalendarSystem();
                 LocalDate start = LocalDate.FromDateTime(DateTime.Now, calendar);
                 LocalDate end = LocalDate.FromDateTime(DateTime.Now.AddDays(1), start.Calendar);
-                DateInterval dateInterval = new DateInterval(start, end);
+                DateInterval dateInterval = new(start, end);
 
                 // Act
                 Action act = () => dateInterval.Should().NotBeInCalendar(calendar);
@@ -461,7 +455,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 LocalDate end = LocalDate.FromDateTime(DateTime.Now);
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, end);
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, end);
 
                 // Act
                 Action act = () => dateInterval.Should().EndAt(end);
@@ -476,14 +470,15 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 LocalDate end = LocalDate.FromDateTime(DateTime.Now);
                 LocalDate expectedEnd = end.PlusDays(1);
-                DateInterval dateInterval = new DateInterval(end, end);
+                DateInterval dateInterval = new(end, end);
 
                 // Act
                 Action act = () => dateInterval.Should().EndAt(expectedEnd);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(dateInterval)} to end at {expectedEnd}, but {nameof(dateInterval)} ends at {end}.");
+                    .WithMessage(
+                        $"Expected {nameof(dateInterval)} to end at {expectedEnd}, but {nameof(dateInterval)} ends at {end}.");
             }
 
             [Fact]
@@ -510,7 +505,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 LocalDate end = LocalDate.FromDateTime(DateTime.Now);
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, end);
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, end);
 
                 // Act
                 Action act = () => dateInterval.Should().NotEndAt(end);
@@ -526,7 +521,7 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 LocalDate end = LocalDate.FromDateTime(DateTime.Now);
                 LocalDate expectedEnd = end.PlusDays(1);
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, end);
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, end);
 
                 // Act
                 Action act = () => dateInterval.Should().NotEndAt(expectedEnd);
@@ -559,7 +554,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 LocalDate start = LocalDate.FromDateTime(DateTime.Now);
-                DateInterval dateInterval = new DateInterval(start, LocalDate.MaxIsoValue);
+                DateInterval dateInterval = new(start, LocalDate.MaxIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().StartAt(start);
@@ -574,14 +569,15 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 LocalDate start = LocalDate.FromDateTime(DateTime.Now);
                 LocalDate expectedStart = start.PlusDays(-1);
-                DateInterval dateInterval = new DateInterval(start, LocalDate.MaxIsoValue);
+                DateInterval dateInterval = new(start, LocalDate.MaxIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().StartAt(expectedStart);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(dateInterval)} to start at {expectedStart}, but {nameof(dateInterval)} starts at {start}.");
+                    .WithMessage(
+                        $"Expected {nameof(dateInterval)} to start at {expectedStart}, but {nameof(dateInterval)} starts at {start}.");
             }
 
             [Fact]
@@ -608,7 +604,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 LocalDate start = LocalDate.FromDateTime(DateTime.Now);
-                DateInterval dateInterval = new DateInterval(start, LocalDate.MaxIsoValue);
+                DateInterval dateInterval = new(start, LocalDate.MaxIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().NotStartAt(start);
@@ -624,7 +620,7 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 LocalDate start = LocalDate.FromDateTime(DateTime.Now);
                 LocalDate expectedStart = start.PlusDays(-1);
-                DateInterval dateInterval = new DateInterval(start, LocalDate.MaxIsoValue);
+                DateInterval dateInterval = new(start, LocalDate.MaxIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().NotStartAt(expectedStart);
@@ -656,7 +652,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_contains_the_local_date_it_succeeds()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, LocalDate.MaxIsoValue);
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, LocalDate.MaxIsoValue);
                 LocalDate localDate = LocalDate.FromDateTime(DateTime.Now);
 
                 // Act
@@ -670,7 +666,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_does_not_contain_the_local_date_it_fails()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.MaxIsoValue, LocalDate.MaxIsoValue);
+                DateInterval dateInterval = new(LocalDate.MaxIsoValue, LocalDate.MaxIsoValue);
                 LocalDate localDate = LocalDate.FromDateTime(DateTime.Now);
 
                 // Act
@@ -702,7 +698,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_does_not_contain_the_local_date_it_succeeds()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
                 LocalDate localDate = LocalDate.FromDateTime(DateTime.Now);
 
                 // Act
@@ -716,7 +712,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_contains_the_date_interval_it_fails()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, LocalDate.MaxIsoValue);
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, LocalDate.MaxIsoValue);
                 LocalDate localDate = LocalDate.FromDateTime(DateTime.Now);
 
                 // Act
@@ -748,8 +744,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_contains_the_date_interval_it_succeeds()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, LocalDate.MaxIsoValue);
-                DateInterval other = new DateInterval(LocalDate.FromDateTime(DateTime.Now), LocalDate.FromDateTime(DateTime.Now.AddDays(1)));
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, LocalDate.MaxIsoValue);
+                DateInterval other = new(LocalDate.FromDateTime(DateTime.Now), LocalDate.FromDateTime(DateTime.Now.AddDays(1)));
 
                 // Act
                 Action act = () => dateInterval.Should().Contain(other);
@@ -762,8 +758,9 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_does_not_contain_the_date_interval_it_fails()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.FromDateTime(DateTime.Now), LocalDate.FromDateTime(DateTime.Now.AddDays(1)));
-                DateInterval other = new DateInterval(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
+                DateInterval dateInterval = new(LocalDate.FromDateTime(DateTime.Now),
+                    LocalDate.FromDateTime(DateTime.Now.AddDays(1)));
+                DateInterval other = new(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().Contain(other);
@@ -777,7 +774,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_asserting_a_null_date_interval_contains_an_date_interval_it_fails()
             {
                 DateInterval? dateInterval = null;
-                DateInterval other = new DateInterval(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
+                DateInterval other = new(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().Contain(other);
@@ -794,8 +791,9 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_does_not_contain_the_date_interval_it_succeeds()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.FromDateTime(DateTime.Now), LocalDate.FromDateTime(DateTime.Now.AddDays(1)));
-                DateInterval other = new DateInterval(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
+                DateInterval dateInterval = new(LocalDate.FromDateTime(DateTime.Now),
+                    LocalDate.FromDateTime(DateTime.Now.AddDays(1)));
+                DateInterval other = new(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().NotContain(other);
@@ -808,8 +806,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_date_interval_contains_the_date_interval_it_fails()
             {
                 // Arrange
-                DateInterval dateInterval = new DateInterval(LocalDate.MinIsoValue, LocalDate.MaxIsoValue);
-                DateInterval other = new DateInterval(LocalDate.FromDateTime(DateTime.Now), LocalDate.FromDateTime(DateTime.Now.AddDays(1)));
+                DateInterval dateInterval = new(LocalDate.MinIsoValue, LocalDate.MaxIsoValue);
+                DateInterval other = new(LocalDate.FromDateTime(DateTime.Now), LocalDate.FromDateTime(DateTime.Now.AddDays(1)));
 
                 // Act
                 Action act = () => dateInterval.Should().NotContain(other);
@@ -823,7 +821,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_asserting_a_null_date_interval_does_not_contain_an_date_interval_it_fails()
             {
                 DateInterval? dateInterval = null;
-                DateInterval other = new DateInterval(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
+                DateInterval other = new(LocalDate.MinIsoValue, LocalDate.MinIsoValue);
 
                 // Act
                 Action act = () => dateInterval.Should().NotContain(other);

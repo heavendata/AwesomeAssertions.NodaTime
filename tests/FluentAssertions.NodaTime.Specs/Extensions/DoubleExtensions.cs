@@ -6,8 +6,8 @@ namespace FluentAssertions.NodaTime.Specs.Extensions
     {
         public static string AsFormatted(this double value)
         {
-            var formatter = new DoubleValueFormatter();
-            var graph = new FormattedObjectGraph(1);
+            DoubleValueFormatter formatter = new();
+            FormattedObjectGraph graph = new(1);
             formatter.Format(value, graph, null, null);
 
             return graph.ToString();

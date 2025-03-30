@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.Execution;
 using FluentAssertions.Primitives;
-
 using NodaTime;
 
 namespace FluentAssertions.NodaTime
@@ -18,8 +16,9 @@ namespace FluentAssertions.NodaTime
         ///     Initializes a new <see cref="AnnualDateAssertions" />.
         /// </summary>
         /// <param name="subject">The <see cref="AnnualDate" /> that is being asserted.</param>
-        public AnnualDateAssertions(AnnualDate? subject)
-            : base(subject)
+        /// <param name="chain"></param>
+        public AnnualDateAssertions(AnnualDate? subject, AssertionChain chain)
+            : base(subject, chain)
         {
         }
 
@@ -27,7 +26,7 @@ namespace FluentAssertions.NodaTime
         [ExcludeFromCodeCoverage]
         protected override string Identifier
         {
-            get { return "AnnualDate"; }
+            get => "AnnualDate";
         }
 
         /// <summary>
@@ -47,12 +46,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<AnnualDateAssertions> Be(AnnualDate? other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(Nullable.Equals(Subject, other))
                 .FailWith("Expected {context:AnnualDate} to be equal to {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -72,12 +71,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<AnnualDateAssertions> NotBe(AnnualDate? other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
                 .ForCondition(!Nullable.Equals(Subject, other))
                 .FailWith("Did not expect {context:AnnualDate} to be equal to {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -95,14 +94,15 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;AnnualDateAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<AnnualDateAssertions> BeGreaterThan(AnnualDate other, string because = "", params object[] becauseArgs)
+        public AndConstraint<AnnualDateAssertions> BeGreaterThan(AnnualDate other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject > other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:AnnualDate} to be greater than {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -120,14 +120,16 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;AnnualDateAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<AnnualDateAssertions> BeGreaterThanOrEqualTo(AnnualDate other, string because = "", params object[] becauseArgs)
+        public AndConstraint<AnnualDateAssertions> BeGreaterThanOrEqualTo(AnnualDate other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject >= other)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:AnnualDate} to be greater than or equal to {0}{reason}, but found {1}.", other, Subject);
+                .FailWith("Expected {context:AnnualDate} to be greater than or equal to {0}{reason}, but found {1}.", other,
+                    Subject);
 
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -147,12 +149,12 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<AnnualDateAssertions> BeLessThan(AnnualDate other, string because = "", params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject < other)
                 .BecauseOf(because, becauseArgs)
                 .FailWith("Expected {context:AnnualDate} to be less than {0}{reason}, but found {1}.", other, Subject);
 
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -170,14 +172,16 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;AnnualDateAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<AnnualDateAssertions> BeLessThanOrEqualTo(AnnualDate other, string because = "", params object[] becauseArgs)
+        public AndConstraint<AnnualDateAssertions> BeLessThanOrEqualTo(AnnualDate other, string because = "",
+            params object[] becauseArgs)
         {
-            Execute.Assertion
+            CurrentAssertionChain
                 .ForCondition(Subject <= other)
                 .BecauseOf(because, becauseArgs)
-                .FailWith("Expected {context:AnnualDate} to be less than or equal to {0}{reason}, but found {1}.", other, Subject);
+                .FailWith("Expected {context:AnnualDate} to be less than or equal to {0}{reason}, but found {1}.", other,
+                    Subject);
 
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -197,25 +201,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<AnnualDateAssertions> BeValidInYear(int year, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:AnnualDate} to be valid in year {0}{reason}", year);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:AnnualDate} to be valid in year {0}{reason}", year, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.IsValidYear(year))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.IsValidYear(year))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -235,25 +235,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<AnnualDateAssertions> NotBeValidInYear(int year, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:AnnualDate} to be valid in year {0}{reason}", year);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:AnnualDate} to be valid in year {0}{reason}", year, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.IsValidYear(year))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.IsValidYear(year))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -275,25 +271,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<AnnualDateAssertions> HaveDay(int day, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:AnnualDate} to have day {0}{reason}", day);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:AnnualDate} to have day {0}{reason}", day, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Day.Equals(day))
+                            .FailWith(", but found {0}.", Subject.Value.Day);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Day.Equals(day))
-                    .FailWith(", but found {0}.", Subject.Value.Day);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -315,25 +307,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<AnnualDateAssertions> NotHaveDay(int day, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:AnnualDate} to have day {0}{reason}", day);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:AnnualDate} to have day {0}{reason}", day, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Day.Equals(day))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Day.Equals(day))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -355,25 +343,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<AnnualDateAssertions> HaveMonth(int month, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Expected {context:AnnualDate} to have month {0}{reason}", month);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Expected {context:AnnualDate} to have month {0}{reason}", month, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(Subject.Value.Month.Equals(month))
+                            .FailWith(", but found {0}.", Subject.Value.Month);
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(Subject.Value.Month.Equals(month))
-                    .FailWith(", but found {0}.", Subject.Value.Month);
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
 
         /// <summary>
@@ -395,25 +379,21 @@ namespace FluentAssertions.NodaTime
         [CustomAssertion]
         public AndConstraint<AnnualDateAssertions> NotHaveMonth(int month, string because = "", params object[] becauseArgs)
         {
-            AssertionScope scope =
-                Execute.Assertion
-                    .BecauseOf(because, becauseArgs)
-                    .WithExpectation("Did not expect {context:AnnualDate} to have month {0}{reason}", month);
+            CurrentAssertionChain
+                .BecauseOf(because, becauseArgs)
+                .WithExpectation("Did not expect {context:AnnualDate} to have month {0}{reason}", month, chain =>
+                {
+                    if (Subject.HasValue)
+                        chain
+                            .ForCondition(!Subject.Value.Month.Equals(month))
+                            .FailWith(".");
+                    else
+                        chain
+                            .ForCondition(false)
+                            .FailWith(", but found <null>.");
+                });
 
-            if (Subject.HasValue)
-            {
-                scope
-                    .ForCondition(!Subject.Value.Month.Equals(month))
-                    .FailWith(".");
-            }
-            else
-            {
-                scope
-                    .ForCondition(false)
-                    .FailWith(", but found <null>.");
-            }
-
-            return new AndConstraint<AnnualDateAssertions>(this);
+            return new(this);
         }
     }
 }

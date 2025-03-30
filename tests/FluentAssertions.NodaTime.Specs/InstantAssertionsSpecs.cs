@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using NodaTime;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -143,7 +141,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(instant)} to be equal to {Instant.FromDateTimeOffset(other)}, but found {instant}.");
+                    .WithMessage(
+                        $"Expected {nameof(instant)} to be equal to {Instant.FromDateTimeOffset(other)}, but found {instant}.");
             }
 
             [Fact]
@@ -158,7 +157,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(instant)} to be equal to {Instant.FromDateTimeOffset(other)}, but found {instant}.");
+                    .WithMessage(
+                        $"Expected {nameof(instant)} to be equal to {Instant.FromDateTimeOffset(other)}, but found {instant}.");
             }
 
             [Fact]
@@ -187,7 +187,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(instant)} to be equal to {Instant.FromDateTimeUtc(other)}, but found {instant}.");
+                    .WithMessage(
+                        $"Expected {nameof(instant)} to be equal to {Instant.FromDateTimeUtc(other)}, but found {instant}.");
             }
 
             [Fact]
@@ -202,7 +203,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(instant)} to be equal to {Instant.FromDateTimeUtc(other)}, but found {instant}.");
+                    .WithMessage(
+                        $"Expected {nameof(instant)} to be equal to {Instant.FromDateTimeUtc(other)}, but found {instant}.");
             }
         }
 
@@ -747,9 +749,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 duration.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(instant)} to be within {precision} from {other}, but it was {other - instant}.");
+                    .WithMessage(
+                        $"Expected {nameof(instant)} to be within {precision} from {other}, but it was {other - instant}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(instant)} to be within {precision} from {other}, but it was {other - instant}.");
+                    .WithMessage(
+                        $"Expected {nameof(instant)} to be within {precision} from {other}, but it was {other - instant}.");
             }
 
             [Fact]
@@ -842,9 +846,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 duration.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(instant)} to be within {precision} from {instant}, but it was {Duration.Zero}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(instant)} to be within {precision} from {instant}, but it was {Duration.Zero}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(instant)} to be within {precision} from {instant}, but it was {Duration.Zero}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(instant)} to be within {precision} from {instant}, but it was {Duration.Zero}.");
             }
 
             [Fact]
@@ -862,9 +868,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 duration.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {Duration.Zero}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {Duration.Zero}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {Duration.Zero}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {Duration.Zero}.");
             }
 
             [Fact]
@@ -881,9 +889,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 duration.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {other - instant}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {other - instant}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {other - instant}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {other - instant}.");
             }
 
             [Fact]
@@ -900,9 +910,11 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 duration.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {instant - other}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {instant - other}.");
                 timestamp.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {instant - other}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(instant)} to be within {precision} from {other}, but it was {instant - other}.");
             }
         }
     }

@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using NodaTime;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -19,8 +17,8 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTimeOffset now = DateTimeOffset.Now;
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Instant end = Instant.FromDateTimeOffset(now.AddDays(1));
-                Interval interval = new Interval(start, end);
-                Interval other = new Interval(start, end);
+                Interval interval = new(start, end);
+                Interval other = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().Be(other);
@@ -36,7 +34,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTimeOffset now = DateTimeOffset.Now;
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Instant end = Instant.FromDateTimeOffset(now.AddDays(1));
-                Interval interval = new Interval(start, end);
+                Interval interval = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().Be(interval);
@@ -69,7 +67,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTimeOffset now = DateTimeOffset.Now;
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Instant end = Instant.FromDateTimeOffset(now.AddDays(1));
-                Interval other = new Interval(start, end);
+                Interval other = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().Be(other);
@@ -87,7 +85,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTimeOffset now = DateTimeOffset.Now;
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Instant end = Instant.FromDateTimeOffset(now.AddDays(1));
-                Interval interval = new Interval(start, end);
+                Interval interval = new(start, end);
                 Interval? other = default;
 
                 // Act
@@ -102,8 +100,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_is_not_equal_to_an_other_interval_it_fails()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MinValue, Instant.MinValue);
-                Interval other = new Interval(Instant.MaxValue, Instant.MaxValue);
+                Interval interval = new(Instant.MinValue, Instant.MinValue);
+                Interval other = new(Instant.MaxValue, Instant.MaxValue);
 
                 // Act
                 Action act = () => interval.Should().Be(other);
@@ -123,8 +121,8 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTimeOffset now = DateTimeOffset.Now;
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Instant end = Instant.FromDateTimeOffset(now.AddDays(1));
-                Interval interval = new Interval(start, end);
-                Interval other = new Interval(start, end);
+                Interval interval = new(start, end);
+                Interval other = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().NotBe(other);
@@ -141,7 +139,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTimeOffset now = DateTimeOffset.Now;
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Instant end = Instant.FromDateTimeOffset(now.AddDays(1));
-                Interval interval = new Interval(start, end);
+                Interval interval = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().NotBe(interval);
@@ -176,7 +174,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTimeOffset now = DateTimeOffset.Now;
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Instant end = Instant.FromDateTimeOffset(now.AddDays(1));
-                Interval other = new Interval(start, end);
+                Interval other = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().NotBe(other);
@@ -193,7 +191,7 @@ namespace FluentAssertions.NodaTime.Specs
                 DateTimeOffset now = DateTimeOffset.Now;
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Instant end = Instant.FromDateTimeOffset(now.AddDays(1));
-                Interval interval = new Interval(start, end);
+                Interval interval = new(start, end);
                 Interval? other = default;
 
                 // Act
@@ -207,8 +205,8 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_is_not_equal_to_an_other_interval_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MinValue, Instant.MinValue);
-                Interval other = new Interval(Instant.MaxValue, Instant.MaxValue);
+                Interval interval = new(Instant.MinValue, Instant.MinValue);
+                Interval other = new(Instant.MaxValue, Instant.MaxValue);
 
                 // Act
                 Action act = () => interval.Should().NotBe(other);
@@ -228,7 +226,7 @@ namespace FluentAssertions.NodaTime.Specs
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Duration duration = Duration.FromDays(new Random().Next(100));
                 Instant end = start + duration;
-                Interval interval = new Interval(start, end);
+                Interval interval = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().HaveDuration(duration);
@@ -246,14 +244,15 @@ namespace FluentAssertions.NodaTime.Specs
                 Duration duration = Duration.FromDays(new Random().Next(100));
                 Duration expecteDuration = duration.Plus(Duration.FromMilliseconds(1));
                 Instant end = start + duration;
-                Interval interval = new Interval(start, end);
+                Interval interval = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().HaveDuration(expecteDuration);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(interval)} to have a duration of {expecteDuration}, but found {interval.Duration}.");
+                    .WithMessage(
+                        $"Expected {nameof(interval)} to have a duration of {expecteDuration}, but found {interval.Duration}.");
             }
 
             [Fact]
@@ -283,7 +282,7 @@ namespace FluentAssertions.NodaTime.Specs
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Duration duration = Duration.FromDays(new Random().Next(100));
                 Instant end = start + duration;
-                Interval interval = new Interval(start, end);
+                Interval interval = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().NotHaveDuration(interval.Duration);
@@ -301,7 +300,7 @@ namespace FluentAssertions.NodaTime.Specs
                 Instant start = Instant.FromDateTimeOffset(now.AddDays(-1));
                 Duration duration = Duration.FromDays(new Random().Next(100));
                 Instant end = start + duration;
-                Interval interval = new Interval(start, end);
+                Interval interval = new(start, end);
 
                 // Act
                 Action act = () => interval.Should().NotHaveDuration(duration.Plus(Duration.FromMilliseconds(1)));
@@ -334,7 +333,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant end = Instant.FromDateTimeOffset(DateTimeOffset.Now);
-                Interval interval = new Interval(null, end);
+                Interval interval = new(null, end);
 
                 // Act
                 Action act = () => interval.Should().EndAt(end);
@@ -349,7 +348,7 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 Instant expectedEnd = Instant.FromDateTimeOffset(DateTimeOffset.Now);
                 Instant end = expectedEnd.PlusNanoseconds(1);
-                Interval interval = new Interval(null, expectedEnd);
+                Interval interval = new(null, expectedEnd);
 
                 // Act
                 Action act = () => interval.Should().EndAt(end);
@@ -365,7 +364,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant end = Instant.MaxValue;
-                Interval interval = new Interval(Instant.MinValue, null);
+                Interval interval = new(Instant.MinValue, null);
 
                 // Act
                 Action act = () => interval.Should().EndAt(end);
@@ -399,7 +398,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant end = Instant.FromDateTimeOffset(DateTimeOffset.Now);
-                Interval interval = new Interval(null, end);
+                Interval interval = new(null, end);
 
                 // Act
                 Action act = () => interval.Should().NotEndAt(end);
@@ -415,7 +414,7 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 Instant expectedEnd = Instant.FromDateTimeOffset(DateTimeOffset.Now);
                 Instant end = expectedEnd.PlusNanoseconds(1);
-                Interval interval = new Interval(null, expectedEnd);
+                Interval interval = new(null, expectedEnd);
 
                 // Act
                 Action act = () => interval.Should().NotEndAt(end);
@@ -430,7 +429,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant end = Instant.MaxValue;
-                Interval interval = new Interval(Instant.MinValue, null);
+                Interval interval = new(Instant.MinValue, null);
 
                 // Act
                 Action act = () => interval.Should().NotEndAt(end);
@@ -462,7 +461,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_has_an_end_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(null, Instant.MaxValue);
+                Interval interval = new(null, Instant.MaxValue);
 
                 // Act
                 Action act = () => interval.Should().End();
@@ -475,7 +474,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_an_end_it_fails()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MinValue, null);
+                Interval interval = new(Instant.MinValue, null);
 
                 // Act
                 Action act = () => interval.Should().End();
@@ -505,7 +504,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_an_end_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MinValue, null);
+                Interval interval = new(Instant.MinValue, null);
 
                 // Act
                 Action act = () => interval.Should().NotEnd();
@@ -519,7 +518,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant end = Instant.MaxValue;
-                Interval interval = new Interval(null, end);
+                Interval interval = new(null, end);
 
                 // Act
                 Action act = () => interval.Should().NotEnd();
@@ -550,7 +549,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant start = Instant.FromDateTimeOffset(DateTimeOffset.Now);
-                Interval interval = new Interval(start, null);
+                Interval interval = new(start, null);
 
                 // Act
                 Action act = () => interval.Should().StartAt(start);
@@ -565,14 +564,15 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 Instant expectedStart = Instant.FromDateTimeOffset(DateTimeOffset.Now);
                 Instant start = expectedStart.PlusNanoseconds(1);
-                Interval interval = new Interval(expectedStart, null);
+                Interval interval = new(expectedStart, null);
 
                 // Act
                 Action act = () => interval.Should().StartAt(start);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(interval)} to start at {start}, but {nameof(interval)} starts at {expectedStart}.");
+                    .WithMessage(
+                        $"Expected {nameof(interval)} to start at {start}, but {nameof(interval)} starts at {expectedStart}.");
             }
 
             [Fact]
@@ -581,7 +581,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant start = Instant.MinValue;
-                Interval interval = new Interval(null, Instant.MaxValue);
+                Interval interval = new(null, Instant.MaxValue);
 
                 // Act
                 Action act = () => interval.Should().StartAt(start);
@@ -615,7 +615,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant start = Instant.FromDateTimeOffset(DateTimeOffset.Now);
-                Interval interval = new Interval(start, null);
+                Interval interval = new(start, null);
 
                 // Act
                 Action act = () => interval.Should().NotStartAt(start);
@@ -631,7 +631,7 @@ namespace FluentAssertions.NodaTime.Specs
                 // Arrange
                 Instant expectedStart = Instant.FromDateTimeOffset(DateTimeOffset.Now);
                 Instant start = expectedStart.PlusNanoseconds(1);
-                Interval interval = new Interval(expectedStart, null);
+                Interval interval = new(expectedStart, null);
 
                 // Act
                 Action act = () => interval.Should().NotStartAt(start);
@@ -646,7 +646,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant start = Instant.MinValue;
-                Interval interval = new Interval(null, Instant.MaxValue);
+                Interval interval = new(null, Instant.MaxValue);
 
                 // Act
                 Action act = () => interval.Should().NotStartAt(start);
@@ -678,7 +678,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_has_a_start_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MinValue, null);
+                Interval interval = new(Instant.MinValue, null);
 
                 // Act
                 Action act = () => interval.Should().Start();
@@ -691,7 +691,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_a_start_it_fails()
             {
                 // Arrange
-                Interval interval = new Interval(null, Instant.MaxValue);
+                Interval interval = new(null, Instant.MaxValue);
 
                 // Act
                 Action act = () => interval.Should().Start();
@@ -721,7 +721,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_a_start_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(null, Instant.MaxValue);
+                Interval interval = new(null, Instant.MaxValue);
 
                 // Act
                 Action act = () => interval.Should().NotStart();
@@ -735,7 +735,7 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 Instant start = Instant.MinValue;
-                Interval interval = new Interval(start, null);
+                Interval interval = new(start, null);
 
                 // Act
                 Action act = () => interval.Should().NotStart();
@@ -765,7 +765,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_contains_the_instant_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MinValue, Instant.MaxValue);
+                Interval interval = new(Instant.MinValue, Instant.MaxValue);
                 Instant instant = Instant.FromDateTimeOffset(DateTimeOffset.Now);
 
                 // Act
@@ -779,7 +779,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_a_start_and_contains_the_instant_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(null, Instant.MaxValue);
+                Interval interval = new(null, Instant.MaxValue);
                 Instant instant = Instant.FromDateTimeOffset(DateTimeOffset.Now);
 
                 // Act
@@ -793,7 +793,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_an_end_and_contains_the_instant_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MinValue, null);
+                Interval interval = new(Instant.MinValue, null);
                 Instant instant = Instant.FromDateTimeOffset(DateTimeOffset.Now);
 
                 // Act
@@ -807,7 +807,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_a_start_and_not_have_an_end_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(null, null);
+                Interval interval = new(null, null);
                 Instant instant = Instant.FromDateTimeOffset(DateTimeOffset.Now);
 
                 // Act
@@ -821,7 +821,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_contain_the_instant_it_fails()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MinValue, Instant.MinValue);
+                Interval interval = new(Instant.MinValue, Instant.MinValue);
                 Instant instant = Instant.FromDateTimeOffset(DateTimeOffset.Now);
                 // Act
                 Action act = () => interval.Should().Contain(instant);
@@ -852,7 +852,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_contain_the_instant_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MinValue, Instant.MinValue);
+                Interval interval = new(Instant.MinValue, Instant.MinValue);
                 Instant instant = Instant.FromDateTimeOffset(DateTimeOffset.Now);
 
                 // Act
@@ -866,7 +866,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_a_start_and_does_not_contain_the_instant_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(null, Instant.MinValue);
+                Interval interval = new(null, Instant.MinValue);
                 Instant instant = Instant.FromDateTimeOffset(DateTimeOffset.Now);
 
                 // Act
@@ -880,7 +880,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_an_end_and_does_not_contain_the_instant_it_succeeds()
             {
                 // Arrange
-                Interval interval = new Interval(Instant.MaxValue, null);
+                Interval interval = new(Instant.MaxValue, null);
                 Instant instant = Instant.FromDateTimeOffset(DateTimeOffset.Now);
 
                 // Act
@@ -894,7 +894,7 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_an_interval_does_not_have_a_start_and_not_have_an_end_it_fails()
             {
                 // Arrange
-                Interval interval = new Interval(null, null);
+                Interval interval = new(null, null);
                 Instant instant = Instant.FromDateTimeOffset(DateTimeOffset.Now);
 
                 // Act

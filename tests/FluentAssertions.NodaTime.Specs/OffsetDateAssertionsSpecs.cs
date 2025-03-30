@@ -1,11 +1,8 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
-
 using FluentAssertions.NodaTime.Specs.Extensions;
-
 using NodaTime;
 using NodaTime.Calendars;
-
 using Xunit;
 using Xunit.Sdk;
 
@@ -13,10 +10,7 @@ namespace FluentAssertions.NodaTime.Specs
 {
     public static class OffsetDateAssertionsSpecs
     {
-        private static CalendarSystem RandomCalendarSystem()
-        {
-            return CalendarSystem.ForId(CalendarSystem.Ids.Random());
-        }
+        private static CalendarSystem RandomCalendarSystem() => CalendarSystem.ForId(CalendarSystem.Ids.Random());
 
         private static (CalendarSystem first, CalendarSystem second) TwoRandomCalendarSystems()
         {
@@ -25,10 +19,7 @@ namespace FluentAssertions.NodaTime.Specs
             return (first, second);
         }
 
-        private static IsoDayOfWeek RandomDayOfWeek()
-        {
-            return (IsoDayOfWeek)new Random().Next(1, 7);
-        }
+        private static IsoDayOfWeek RandomDayOfWeek() => (IsoDayOfWeek)new Random().Next(1, 7);
 
         public class Be
         {
@@ -37,7 +28,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
                 OffsetDate other = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(offsetDate.Calendar).ToOffsetDate();
 
                 // Act
@@ -52,7 +44,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().Be(offsetDate);
@@ -99,7 +92,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
                 OffsetDate? other = default;
 
                 // Act
@@ -134,7 +128,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotBe(offsetDate);
@@ -182,7 +177,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
                 OffsetDate? other = default;
 
                 // Act
@@ -200,7 +196,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().BeInCalendar(calendar);
@@ -214,7 +211,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
 
                 // Act
                 CalendarSystem returned = offsetDate.Should().BeInCalendar(calendar).Which;
@@ -228,7 +226,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 (CalendarSystem calendar, CalendarSystem other) = TwoRandomCalendarSystems();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().BeInCalendar(other);
@@ -262,7 +261,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 (CalendarSystem calendar, CalendarSystem other) = TwoRandomCalendarSystems();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotBeInCalendar(other);
@@ -276,7 +276,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotBeInCalendar(calendar);
@@ -310,7 +311,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 LocalDate localDate = offsetDate.Date;
 
                 // Act
@@ -325,7 +327,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 LocalDate localDate = offsetDate.Date;
 
                 // Act
@@ -340,7 +343,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 LocalDate localDate = offsetDate.Date.PlusDays(1);
 
                 // Act
@@ -376,7 +380,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 LocalDate localDate = offsetDate.Date;
 
                 // Act
@@ -392,7 +397,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 LocalDate localDate = offsetDate.Date.PlusDays(1);
 
                 // Act
@@ -427,7 +433,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 Offset offset = offsetDate.Offset;
 
                 // Act
@@ -442,7 +449,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 Offset offset = offsetDate.Offset;
 
                 // Act
@@ -457,7 +465,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 Offset offset = offsetDate.Offset.Plus(Offset.FromSeconds(1));
 
                 // Act
@@ -492,7 +501,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 Offset offset = offsetDate.Offset;
 
                 // Act
@@ -508,7 +518,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 Offset offset = offsetDate.Offset.Plus(Offset.FromSeconds(1));
 
                 // Act
@@ -542,7 +553,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 TimeSpan offset = offsetDate.Offset.ToTimeSpan();
 
                 // Act
@@ -557,7 +569,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 TimeSpan offset = offsetDate.Offset.ToTimeSpan();
 
                 // Act
@@ -572,7 +585,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 TimeSpan offset = offsetDate.Offset.Plus(Offset.FromSeconds(1)).ToTimeSpan();
 
                 // Act
@@ -580,7 +594,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetDate)} to have offset {Offset.FromTimeSpan(offset)}, but found {offsetDate.Offset}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetDate)} to have offset {Offset.FromTimeSpan(offset)}, but found {offsetDate.Offset}.");
             }
 
             [Fact]
@@ -596,7 +611,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetDate)} to have offset {Offset.FromTimeSpan(offset)}, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetDate)} to have offset {Offset.FromTimeSpan(offset)}, but found <null>.");
             }
         }
 
@@ -607,7 +623,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 TimeSpan offset = offsetDate.Offset.ToTimeSpan();
 
                 // Act
@@ -623,7 +640,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 CalendarSystem calendar = RandomCalendarSystem();
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(DateTimeOffset.Now).WithCalendar(calendar).ToOffsetDate();
                 TimeSpan offset = offsetDate.Offset.Plus(Offset.FromSeconds(1)).ToTimeSpan();
 
                 // Act
@@ -646,7 +664,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetDate)} to have offset {Offset.FromTimeSpan(offset)}, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetDate)} to have offset {Offset.FromTimeSpan(offset)}, but found <null>.");
             }
         }
 
@@ -657,7 +676,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().HaveDay(offsetDate.Day);
@@ -707,7 +727,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotHaveDay(offsetDate.Day);
@@ -757,7 +778,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().HaveDayOfWeek(offsetDate.DayOfWeek);
@@ -780,7 +802,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetDate)} to have day of week {dayOfWeek.AsFormatted()}, but found {offsetDate.DayOfWeek.AsFormatted()}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetDate)} to have day of week {dayOfWeek.AsFormatted()}, but found {offsetDate.DayOfWeek.AsFormatted()}.");
             }
 
             [Fact]
@@ -796,7 +819,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetDate)} to have day of week {dayOfWeek.AsFormatted()}, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetDate)} to have day of week {dayOfWeek.AsFormatted()}, but found <null>.");
             }
         }
 
@@ -807,14 +831,16 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotHaveDayOfWeek(offsetDate.DayOfWeek);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetDate)} to have day of week {offsetDate.DayOfWeek.AsFormatted()}.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetDate)} to have day of week {offsetDate.DayOfWeek.AsFormatted()}.");
             }
 
             [Fact]
@@ -846,7 +872,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetDate)} to have day of week {dayOfWeek.AsFormatted()}, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetDate)} to have day of week {dayOfWeek.AsFormatted()}, but found <null>.");
             }
         }
 
@@ -857,7 +884,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().HaveDayOfYear(offsetDate.DayOfYear);
@@ -880,7 +908,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetDate)} to have day of year {dayOfYear}, but found {offsetDate.DayOfYear}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetDate)} to have day of year {dayOfYear}, but found {offsetDate.DayOfYear}.");
             }
 
             [Fact]
@@ -907,7 +936,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotHaveDayOfYear(offsetDate.DayOfYear);
@@ -957,7 +987,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().HaveEra(offsetDate.Era);
@@ -970,8 +1001,10 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_date_does_not_have_the_specified_era_it_fails()
             {
                 // Arrange
-                OffsetDate ad = new OffsetDate(new LocalDate(Era.Common, 1966, 9, 8, CalendarSystem.Iso), Offset.Zero).At(LocalTime.Midnight).ToOffsetDate();
-                OffsetDate bc = new OffsetDate(new LocalDate(Era.BeforeCommon, 384, 4, 16, CalendarSystem.Iso), Offset.Zero).At(LocalTime.Midnight).ToOffsetDate();
+                OffsetDate ad = new OffsetDate(new(Era.Common, 1966, 9, 8, CalendarSystem.Iso), Offset.Zero)
+                    .At(LocalTime.Midnight).ToOffsetDate();
+                OffsetDate bc = new OffsetDate(new(Era.BeforeCommon, 384, 4, 16, CalendarSystem.Iso), Offset.Zero)
+                    .At(LocalTime.Midnight).ToOffsetDate();
 
                 // Act
                 Action act = () => ad.Should().HaveEra(bc.Era);
@@ -1005,7 +1038,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotHaveEra(offsetDate.Era);
@@ -1019,8 +1053,10 @@ namespace FluentAssertions.NodaTime.Specs
             public void When_a_offset_date_does_not_have_the_specified_era_it_succeeds()
             {
                 // Arrange
-                OffsetDate ad = new OffsetDate(new LocalDate(Era.Common, 1966, 9, 8, CalendarSystem.Iso), Offset.Zero).At(LocalTime.Midnight).ToOffsetDate();
-                OffsetDate bc = new OffsetDate(new LocalDate(Era.BeforeCommon, 384, 4, 16, CalendarSystem.Iso), Offset.Zero).At(LocalTime.Midnight).ToOffsetDate();
+                OffsetDate ad = new OffsetDate(new(Era.Common, 1966, 9, 8, CalendarSystem.Iso), Offset.Zero)
+                    .At(LocalTime.Midnight).ToOffsetDate();
+                OffsetDate bc = new OffsetDate(new(Era.BeforeCommon, 384, 4, 16, CalendarSystem.Iso), Offset.Zero)
+                    .At(LocalTime.Midnight).ToOffsetDate();
 
                 // Act
                 Action act = () => ad.Should().NotHaveEra(bc.Era);
@@ -1053,7 +1089,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().HaveMonth(offsetDate.Month);
@@ -1067,7 +1104,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
                 int month = offsetDate.With(date => date.PlusMonths(1)).Month;
 
                 // Act
@@ -1102,7 +1140,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotHaveMonth(offsetDate.Month);
@@ -1117,7 +1156,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
                 int month = offsetDate.With(date => date.PlusMonths(1)).Month;
 
                 // Act
@@ -1151,7 +1191,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().HaveYear(offsetDate.Year);
@@ -1165,7 +1206,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
                 int year = offsetDate.With(date => date.PlusYears(1)).Year;
 
                 // Act
@@ -1200,7 +1242,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotHaveYear(offsetDate.Year);
@@ -1215,7 +1258,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
                 int year = offsetDate.With(date => date.PlusYears(1)).Year;
 
                 // Act
@@ -1249,7 +1293,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().HaveYearWithinEra(offsetDate.YearOfEra);
@@ -1263,7 +1308,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
                 int yearOfEra = offsetDate.With(date => date.PlusYears(1)).YearOfEra;
 
                 // Act
@@ -1271,7 +1317,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetDate)} to have {yearOfEra} as the year within the era, but found {offsetDate.YearOfEra}.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetDate)} to have {yearOfEra} as the year within the era, but found {offsetDate.YearOfEra}.");
             }
 
             [Fact]
@@ -1287,7 +1334,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(offsetDate)} to have {yearOfEra} as the year within the era, but found <null>.");
+                    .WithMessage(
+                        $"Expected {nameof(offsetDate)} to have {yearOfEra} as the year within the era, but found <null>.");
             }
         }
 
@@ -1298,14 +1346,16 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
 
                 // Act
                 Action act = () => offsetDate.Should().NotHaveYearWithinEra(offsetDate.YearOfEra);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetDate)} to have {offsetDate.YearOfEra} as the year within the era.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetDate)} to have {offsetDate.YearOfEra} as the year within the era.");
             }
 
             [Fact]
@@ -1313,7 +1363,8 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 DateTimeOffset now = DateTimeOffset.Now;
-                OffsetDate offsetDate = OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
+                OffsetDate offsetDate =
+                    OffsetDateTime.FromDateTimeOffset(now).WithCalendar(RandomCalendarSystem()).ToOffsetDate();
                 int yearOfEra = offsetDate.With(date => date.PlusYears(1)).YearOfEra;
 
                 // Act
@@ -1336,7 +1387,8 @@ namespace FluentAssertions.NodaTime.Specs
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Did not expect {nameof(offsetDate)} to have {yearOfEra} as the year within the era, but found <null>.");
+                    .WithMessage(
+                        $"Did not expect {nameof(offsetDate)} to have {yearOfEra} as the year within the era, but found <null>.");
             }
         }
     }

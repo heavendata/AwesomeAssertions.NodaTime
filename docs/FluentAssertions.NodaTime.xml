@@ -9,11 +9,12 @@
                 Contains assertions for <see cref="T:NodaTime.AnnualDate" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.AnnualDateAssertions.#ctor(System.Nullable{NodaTime.AnnualDate})">
+        <member name="M:FluentAssertions.NodaTime.AnnualDateAssertions.#ctor(System.Nullable{NodaTime.AnnualDate},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.AnnualDateAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.AnnualDate" /> that is being asserted.</param>
+            <param name="chain"></param>
         </member>
         <member name="P:FluentAssertions.NodaTime.AnnualDateAssertions.Identifier">
             <inheritdoc />
@@ -225,182 +226,182 @@
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.Instant)">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.InstantAssertions"/> object that can be used to assert a <see cref="T:NodaTime.Instant" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.InstantAssertions" /> object that can be used to assert a <see cref="T:NodaTime.Instant" />.
             </summary>
             <param name="instant">The <see cref="T:NodaTime.Instant" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.InstantAssertions" /> to use for asserting a <see cref="T:NodaTime.Instant" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.Instant})">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.InstantAssertions"/> object that can be used to assert a <see cref="T:NodaTime.Instant" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.InstantAssertions" /> object that can be used to assert a <see cref="T:NodaTime.Instant" />.
             </summary>
             <param name="instant">The <see cref="T:NodaTime.Instant" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.InstantAssertions" /> to use for asserting a <see cref="T:NodaTime.Instant" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.AnnualDate)">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.AnnualDateAssertions"/> object that can be used to assert a <see cref="T:NodaTime.AnnualDate" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.AnnualDateAssertions" /> object that can be used to assert a <see cref="T:NodaTime.AnnualDate" />.
             </summary>
             <param name="annualDate">The <see cref="T:NodaTime.AnnualDate" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.AnnualDateAssertions" /> to use for asserting a <see cref="T:NodaTime.AnnualDate" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.AnnualDate})">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.AnnualDateAssertions"/> object that can be used to assert a <see cref="T:NodaTime.AnnualDate" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.AnnualDateAssertions" /> object that can be used to assert a <see cref="T:NodaTime.AnnualDate" />.
             </summary>
             <param name="annualDate">The <see cref="T:NodaTime.AnnualDate" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.AnnualDateAssertions" /> to use for asserting a <see cref="T:NodaTime.AnnualDate" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.Interval)">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.IntervalAssertions"/> object that can be used to assert a <see cref="T:NodaTime.Interval" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.IntervalAssertions" /> object that can be used to assert a <see cref="T:NodaTime.Interval" />.
             </summary>
             <param name="interval">The <see cref="T:NodaTime.Interval" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.IntervalAssertions" /> to use for asserting a <see cref="T:NodaTime.Interval" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.Interval})">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.IntervalAssertions"/> object that can be used to assert a <see cref="T:NodaTime.Interval" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.IntervalAssertions" /> object that can be used to assert a <see cref="T:NodaTime.Interval" />.
             </summary>
             <param name="interval">The <see cref="T:NodaTime.Interval" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.IntervalAssertions" /> to use for asserting a <see cref="T:NodaTime.Interval" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.DateInterval)">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.DateIntervalAssertions"/> object that can be used to assert a <see cref="T:NodaTime.DateInterval" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.DateIntervalAssertions" /> object that can be used to assert a <see cref="T:NodaTime.DateInterval" />.
             </summary>
             <param name="interval">The <see cref="T:NodaTime.DateInterval" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.DateIntervalAssertions" /> to use for asserting a <see cref="T:NodaTime.DateInterval" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.Offset)">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.OffsetAssertions"/> object that can be used to assert a <see cref="T:NodaTime.Offset" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.OffsetAssertions" /> object that can be used to assert a <see cref="T:NodaTime.Offset" />.
             </summary>
             <param name="offset">The <see cref="T:NodaTime.Offset" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.OffsetAssertions" /> to use for asserting a <see cref="T:NodaTime.Offset" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.Offset})">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetAssertions"/> object that can be used to assert a <see cref="T:NodaTime.Offset" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetAssertions" /> object that can be used to assert a <see cref="T:NodaTime.Offset" />.
             </summary>
             <param name="offset">The <see cref="T:NodaTime.Offset" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.OffsetAssertions" /> to use for asserting a <see cref="T:NodaTime.Offset" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.LocalDateTime})">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.LocalDateTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.LocalDateTime" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.LocalDateTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.LocalDateTime" />.
             </summary>
             <param name="localDateTime">The <see cref="T:NodaTime.LocalDateTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.LocalDateTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.LocalDateTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.LocalDateTime)">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.LocalDateTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.LocalDateTime" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.LocalDateTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.LocalDateTime" />.
             </summary>
             <param name="localDateTime">The <see cref="T:NodaTime.LocalDateTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.LocalDateTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.LocalDateTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.LocalDate})">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.LocalDateAssertions"/> object that can be used to assert a <see cref="T:NodaTime.LocalDate" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.LocalDateAssertions" /> object that can be used to assert a <see cref="T:NodaTime.LocalDate" />.
             </summary>
             <param name="localDate">The <see cref="T:NodaTime.LocalDate" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.LocalDateAssertions" /> to use for asserting a <see cref="T:NodaTime.LocalDate" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.LocalDate)">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.LocalDateAssertions"/> object that can be used to assert a <see cref="T:NodaTime.LocalDate" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.LocalDateAssertions" /> object that can be used to assert a <see cref="T:NodaTime.LocalDate" />.
             </summary>
             <param name="localDate">The <see cref="T:NodaTime.LocalDate" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.LocalDateAssertions" /> to use for asserting a <see cref="T:NodaTime.LocalDate" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.LocalTime})">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.LocalTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.LocalTime" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.LocalTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.LocalTime" />.
             </summary>
             <param name="localTime">The <see cref="T:NodaTime.LocalTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.LocalTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.LocalTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.LocalTime)">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.LocalTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.LocalTime" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.LocalTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.LocalTime" />.
             </summary>
             <param name="localTime">The <see cref="T:NodaTime.LocalTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.LocalTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.LocalTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.OffsetDateTime})">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetDateTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.OffsetDateTime" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetDateTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.OffsetDateTime" />.
             </summary>
             <param name="offsetDateTime">The <see cref="T:NodaTime.OffsetDateTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.OffsetDateTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.OffsetDateTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.OffsetDateTime)">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetDateTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.OffsetDateTime" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetDateTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.OffsetDateTime" />.
             </summary>
             <param name="offsetDateTime">The <see cref="T:NodaTime.OffsetDateTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.OffsetDateTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.OffsetDateTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.OffsetDate})">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetDateAssertions"/> object that can be used to assert a <see cref="T:NodaTime.OffsetDate" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetDateAssertions" /> object that can be used to assert a <see cref="T:NodaTime.OffsetDate" />.
             </summary>
             <param name="offsetDate">The <see cref="T:NodaTime.OffsetDate" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.OffsetDateAssertions" /> to use for asserting a <see cref="T:NodaTime.OffsetDate" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.OffsetDate)">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetDateAssertions"/> object that can be used to assert a <see cref="T:NodaTime.OffsetDate" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetDateAssertions" /> object that can be used to assert a <see cref="T:NodaTime.OffsetDate" />.
             </summary>
             <param name="offsetDate">The <see cref="T:NodaTime.OffsetDate" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.OffsetDateAssertions" /> to use for asserting a <see cref="T:NodaTime.OffsetDate" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.OffsetTime})">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.OffsetTime" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.OffsetTime" />.
             </summary>
             <param name="offsetTime">The <see cref="T:NodaTime.OffsetTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.OffsetTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.OffsetTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.OffsetTime)">
             <summary>
-                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.OffsetTime" />.
+                Returns an <see cref="T:FluentAssertions.NodaTime.OffsetTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.OffsetTime" />.
             </summary>
             <param name="offsetTime">The <see cref="T:NodaTime.OffsetTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.OffsetTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.OffsetTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.ZonedDateTime})">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.ZonedDateTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.ZonedDateTime" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.ZonedDateTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.ZonedDateTime" />.
             </summary>
             <param name="zonedDateTime">The <see cref="T:NodaTime.ZonedDateTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.ZonedDateTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.ZonedDateTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.ZonedDateTime)">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.ZonedDateTimeAssertions"/> object that can be used to assert a <see cref="T:NodaTime.ZonedDateTime" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.ZonedDateTimeAssertions" /> object that can be used to assert a <see cref="T:NodaTime.ZonedDateTime" />.
             </summary>
             <param name="zonedDateTime">The <see cref="T:NodaTime.ZonedDateTime" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.ZonedDateTimeAssertions" /> to use for asserting a <see cref="T:NodaTime.ZonedDateTime" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(System.Nullable{NodaTime.Duration})">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.DurationAssertions"/> object that can be used to assert a <see cref="T:NodaTime.Duration" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.DurationAssertions" /> object that can be used to assert a <see cref="T:NodaTime.Duration" />.
             </summary>
             <param name="duration">The <see cref="T:NodaTime.Duration" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.DurationAssertions" /> to use for asserting a <see cref="T:NodaTime.Duration" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.Duration)">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.DurationAssertions"/> object that can be used to assert a <see cref="T:NodaTime.Duration" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.DurationAssertions" /> object that can be used to assert a <see cref="T:NodaTime.Duration" />.
             </summary>
             <param name="duration">The <see cref="T:NodaTime.Duration" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.DurationAssertions" /> to use for asserting a <see cref="T:NodaTime.Duration" />.</returns>
         </member>
         <member name="M:FluentAssertions.NodaTime.AssertionExtensions.Should(NodaTime.Period)">
             <summary>
-                Returns a <see cref="T:FluentAssertions.NodaTime.PeriodAssertions"/> object that can be used to assert a <see cref="T:NodaTime.Period" />.
+                Returns a <see cref="T:FluentAssertions.NodaTime.PeriodAssertions" /> object that can be used to assert a <see cref="T:NodaTime.Period" />.
             </summary>
             <param name="period">The <see cref="T:NodaTime.Period" /> to assert.</param>
             <returns>The <see cref="T:FluentAssertions.NodaTime.PeriodAssertions" /> to use for asserting a <see cref="T:NodaTime.Period" />.</returns>
@@ -410,11 +411,12 @@
                 Contains assertions for <see cref="T:NodaTime.DateInterval" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.DateIntervalAssertions.#ctor(NodaTime.DateInterval)">
+        <member name="M:FluentAssertions.NodaTime.DateIntervalAssertions.#ctor(NodaTime.DateInterval,FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.DateIntervalAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.DateInterval" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.DateIntervalAssertions.Identifier">
             <inheritdoc />
@@ -626,7 +628,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;DateIntervalAssertions, CalendarSystem&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;DateIntervalAssertions,
+                    CalendarSystem&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.CalendarSystem" />.
             </returns>
         </member>
@@ -653,11 +659,12 @@
                 Contains assertions for <see cref="T:NodaTime.Duration" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.DurationAssertions.#ctor(System.Nullable{NodaTime.Duration})">
+        <member name="M:FluentAssertions.NodaTime.DurationAssertions.#ctor(System.Nullable{NodaTime.Duration},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.DurationAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.Duration" /> that is being asserted.</param>
+            <param name="chain"></param>
         </member>
         <member name="P:FluentAssertions.NodaTime.DurationAssertions.Identifier">
             <inheritdoc />
@@ -1776,11 +1783,12 @@
                 Contains assertions for <see cref="T:NodaTime.Instant" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.InstantAssertions.#ctor(System.Nullable{NodaTime.Instant})">
+        <member name="M:FluentAssertions.NodaTime.InstantAssertions.#ctor(System.Nullable{NodaTime.Instant},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.InstantAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.Instant" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.InstantAssertions.Identifier">
             <inheritdoc />
@@ -2018,11 +2026,12 @@
                 Contains assertions for <see cref="T:NodaTime.Interval" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.IntervalAssertions.#ctor(System.Nullable{NodaTime.Interval})">
+        <member name="M:FluentAssertions.NodaTime.IntervalAssertions.#ctor(System.Nullable{NodaTime.Interval},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.IntervalAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.Interval" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.IntervalAssertions.Identifier">
             <inheritdoc />
@@ -2256,7 +2265,7 @@
                 Contains assertions for <see cref="T:NodaTime.LocalDate" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.LocalDateAssertions.#ctor(System.Nullable{NodaTime.LocalDate})">
+        <member name="M:FluentAssertions.NodaTime.LocalDateAssertions.#ctor(System.Nullable{NodaTime.LocalDate},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.LocalDateAssertions" />.
             </summary>
@@ -2378,7 +2387,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;LocalDateAssertions, CalendarSystem&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;LocalDateAssertions, CalendarSystem
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.CalendarSystem" />.
             </returns>
         </member>
@@ -2721,11 +2734,12 @@
                 Contains assertions for <see cref="T:NodaTime.LocalDateTime" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.LocalDateTimeAssertions.#ctor(System.Nullable{NodaTime.LocalDateTime})">
+        <member name="M:FluentAssertions.NodaTime.LocalDateTimeAssertions.#ctor(System.Nullable{NodaTime.LocalDateTime},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.LocalDateTimeAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.LocalDateTime" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.LocalDateTimeAssertions.Identifier">
             <inheritdoc />
@@ -2843,7 +2857,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;LocalDateTimeAssertions, CalendarSystem&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;LocalDateTimeAssertions,
+                    CalendarSystem&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.CalendarSystem" />.
             </returns>
         </member>
@@ -2880,7 +2898,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;LocalDateTimeAssertions, LocalDate&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;LocalDateTimeAssertions, LocalDate
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.LocalDate" />.
             </returns>
         </member>
@@ -2917,7 +2939,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;LocalDateTimeAssertions, LocalTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;LocalDateTimeAssertions, LocalTime
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.LocalTime" />.
             </returns>
         </member>
@@ -3584,11 +3610,12 @@
                 Contains assertions for <see cref="T:NodaTime.LocalTime" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.LocalTimeAssertions.#ctor(System.Nullable{NodaTime.LocalTime})">
+        <member name="M:FluentAssertions.NodaTime.LocalTimeAssertions.#ctor(System.Nullable{NodaTime.LocalTime},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.LocalTimeAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.LocalTime" /> that is being asserted.</param>
+            <param name="chain"></param>
         </member>
         <member name="P:FluentAssertions.NodaTime.LocalTimeAssertions.Identifier">
             <inheritdoc />
@@ -4018,11 +4045,12 @@
                 Contains assertions for <see cref="T:NodaTime.Offset" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.OffsetAssertions.#ctor(System.Nullable{NodaTime.Offset})">
+        <member name="M:FluentAssertions.NodaTime.OffsetAssertions.#ctor(System.Nullable{NodaTime.Offset},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.OffsetAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.Offset" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.OffsetAssertions.Identifier">
             <inheritdoc />
@@ -4432,11 +4460,12 @@
                 Contains assertions for <see cref="T:NodaTime.OffsetDate" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.OffsetDateAssertions.#ctor(System.Nullable{NodaTime.OffsetDate})">
+        <member name="M:FluentAssertions.NodaTime.OffsetDateAssertions.#ctor(System.Nullable{NodaTime.OffsetDate},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.OffsetDateAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.OffsetDate" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.OffsetDateAssertions.Identifier">
             <inheritdoc />
@@ -4488,7 +4517,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateAssertions, CalendarSystem&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateAssertions, CalendarSystem
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.CalendarSystem" />.
             </returns>
         </member>
@@ -4525,7 +4558,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateTimeAssertions, OffsetDate&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateTimeAssertions, OffsetDate
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetDate" />.
             </returns>
         </member>
@@ -4562,7 +4599,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateTimeAssertions, OffsetDate&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateTimeAssertions, OffsetDate
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetDate" />.
             </returns>
         </member>
@@ -4581,7 +4622,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateTimeAssertions, OffsetDate&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateTimeAssertions, OffsetDate
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetDate" />.
             </returns>
         </member>
@@ -4878,11 +4923,12 @@
                 Contains assertions for <see cref="T:NodaTime.OffsetDateTime" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.OffsetDateTimeAssertions.#ctor(System.Nullable{NodaTime.OffsetDateTime})">
+        <member name="M:FluentAssertions.NodaTime.OffsetDateTimeAssertions.#ctor(System.Nullable{NodaTime.OffsetDateTime},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.OffsetDateTimeAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.OffsetDateTime" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.OffsetDateTimeAssertions.Identifier">
             <inheritdoc />
@@ -4934,7 +4980,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateTimeAssertions, CalendarSystem&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateTimeAssertions,
+                    CalendarSystem&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.CalendarSystem" />.
             </returns>
         </member>
@@ -4971,7 +5021,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateTimeAssertions, LocalDate&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateTimeAssertions, LocalDate
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetDate" />.
             </returns>
         </member>
@@ -5008,7 +5062,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateTimeAssertions, LocalDateTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateTimeAssertions,
+                    LocalDateTime&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetDate" />.
             </returns>
         </member>
@@ -5045,7 +5103,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateTimeAssertions, OffsetDateTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateTimeAssertions,
+                    OffsetDateTime&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetDateTime" />.
             </returns>
         </member>
@@ -5064,7 +5126,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateTimeAssertions, OffsetDateTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateTimeAssertions,
+                    OffsetDateTime&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetDateTime" />.
             </returns>
         </member>
@@ -5119,7 +5185,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetDateTimeAssertions, LocalTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;OffsetDateTimeAssertions, LocalTime
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetTime" />.
             </returns>
         </member>
@@ -5722,11 +5792,12 @@
                 Contains assertions for <see cref="T:NodaTime.OffsetTime" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.OffsetTimeAssertions.#ctor(System.Nullable{NodaTime.OffsetTime})">
+        <member name="M:FluentAssertions.NodaTime.OffsetTimeAssertions.#ctor(System.Nullable{NodaTime.OffsetTime},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.OffsetTimeAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.OffsetTime" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.OffsetTimeAssertions.Identifier">
             <inheritdoc />
@@ -5778,7 +5849,8 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetTimeAssertions, OffsetTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetTimeAssertions, OffsetTime&gt;</see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetTime" />.
             </returns>
         </member>
@@ -5797,7 +5869,8 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetTimeAssertions, OffsetTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetTimeAssertions, OffsetTime&gt;</see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetTime" />.
             </returns>
         </member>
@@ -5852,7 +5925,8 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetTimeAssertions, LocalTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;OffsetTimeAssertions, LocalTime&gt;</see>
                 which can be used to assert the <see cref="T:NodaTime.OffsetTime" />.
             </returns>
         </member>
@@ -6203,11 +6277,12 @@
                 Contains assertions for <see cref="T:NodaTime.Period" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.PeriodAssertions.#ctor(NodaTime.Period)">
+        <member name="M:FluentAssertions.NodaTime.PeriodAssertions.#ctor(NodaTime.Period,FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.PeriodAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.Period" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.PeriodAssertions.Identifier">
             <inheritdoc />
@@ -6731,11 +6806,12 @@
                 Contains assertions for <see cref="T:NodaTime.ZonedDateTime" />.
             </summary>
         </member>
-        <member name="M:FluentAssertions.NodaTime.ZonedDateTimeAssertions.#ctor(System.Nullable{NodaTime.ZonedDateTime})">
+        <member name="M:FluentAssertions.NodaTime.ZonedDateTimeAssertions.#ctor(System.Nullable{NodaTime.ZonedDateTime},FluentAssertions.Execution.AssertionChain)">
             <summary>
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.ZonedDateTimeAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.ZonedDateTime" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.ZonedDateTimeAssertions.Identifier">
             <inheritdoc />
@@ -6787,7 +6863,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;ZonedDateTimeAssertions, CalendarSystem&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;ZonedDateTimeAssertions,
+                    CalendarSystem&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.CalendarSystem" />.
             </returns>
         </member>
@@ -6824,7 +6904,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;ZonedDateTimeAssertions, LocalDate&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;ZonedDateTimeAssertions, LocalDate
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.LocalDate" />.
             </returns>
         </member>
@@ -6861,7 +6945,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;ZonedDateTimeAssertions, LocalTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;ZonedDateTimeAssertions, LocalTime
+                    &gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.LocalTime" />.
             </returns>
         </member>
@@ -6898,7 +6986,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;ZonedDateTimeAssertions, LocalDateTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;ZonedDateTimeAssertions,
+                    LocalDateTime&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.LocalDateTime" />.
             </returns>
         </member>
@@ -6935,7 +7027,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;ZonedDateTimeAssertions, ZonedDateTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;ZonedDateTimeAssertions,
+                    ZonedDateTime&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.ZonedDateTime" />.
             </returns>
         </member>
@@ -6954,7 +7050,11 @@
                 Zero or more objects to format using the placeholders in <paramref name="because" />.
             </param>
             <returns>
-                An <see cref="T:FluentAssertions.AndWhichConstraint`2">AndWhichConstraint&lt;ZonedDateTimeAssertions, ZonedDateTime&gt;</see>
+                An
+                <see cref="T:FluentAssertions.AndWhichConstraint`2">
+                    AndWhichConstraint&lt;ZonedDateTimeAssertions,
+                    ZonedDateTime&gt;
+                </see>
                 which can be used to assert the <see cref="T:NodaTime.ZonedDateTime" />.
             </returns>
         </member>
