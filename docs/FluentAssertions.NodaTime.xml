@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>FluentAssertions.NodaTime</name>
+        <name>AwesomeAssertions.NodaTime</name>
     </assembly>
     <members>
         <member name="T:FluentAssertions.NodaTime.AnnualDateAssertions">
@@ -2270,6 +2270,7 @@
                 Initializes a new <see cref="T:FluentAssertions.NodaTime.LocalDateAssertions" />.
             </summary>
             <param name="subject">The <see cref="T:NodaTime.LocalDate" /> that is being asserted.</param>
+            <param name="chain">Assertion chain</param>
         </member>
         <member name="P:FluentAssertions.NodaTime.LocalDateAssertions.Identifier">
             <inheritdoc />

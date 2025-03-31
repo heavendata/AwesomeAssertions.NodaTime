@@ -1382,14 +1382,14 @@ namespace FluentAssertions.NodaTime.Specs
             {
                 // Arrange
                 LocalDateTime ad = new LocalDate(Era.Common, 1966, 9, 8, CalendarSystem.Iso).AtMidnight();
-                LocalDateTime bc = new LocalDate(Era.BeforeCommon, 384, 4, 16, CalendarSystem.Iso).AtMidnight();
+                Era beforeCommon = Era.BeforeCommon;
 
                 // Act
-                Action act = () => ad.Should().HaveEra(bc.Era);
+                Action act = () => ad.Should().HaveEra(beforeCommon);
 
                 // Assert
                 act.Should().Throw<XunitException>()
-                    .WithMessage($"Expected {nameof(ad)} to have era {bc.Era}, but found {ad.Era}.");
+                    .WithMessage($"Expected {nameof(ad)} to have era {beforeCommon}, but found {ad.Era}.");
             }
 
             [Fact]

@@ -17,6 +17,7 @@ namespace FluentAssertions.NodaTime
         ///     Initializes a new <see cref="LocalDateAssertions" />.
         /// </summary>
         /// <param name="subject">The <see cref="LocalDate" /> that is being asserted.</param>
+        /// <param name="chain">Assertion chain</param>
         public LocalDateAssertions(LocalDate? subject, AssertionChain chain)
             : base(subject, chain)
         {
@@ -399,8 +400,7 @@ namespace FluentAssertions.NodaTime
         ///     An <see cref="AndConstraint{T}">AndConstraint&lt;LocalDateAssertions&gt;</see> which can be used to chain assertions.
         /// </returns>
         [CustomAssertion]
-        public AndConstraint<LocalDateAssertions> HaveDayOfYear(int dayOfYear, string because = "",
-            params object[] becauseArgs)
+        public AndConstraint<LocalDateAssertions> HaveDayOfYear(int dayOfYear, string because = "", params object[] becauseArgs)
         {
             CurrentAssertionChain
                 .BecauseOf(because, becauseArgs)
