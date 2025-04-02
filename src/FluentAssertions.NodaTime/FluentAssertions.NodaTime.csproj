@@ -33,6 +33,8 @@
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute">
       <_Parameter1>FluentAssertions.NodaTime.Specs</_Parameter1>
     </AssemblyAttribute>
+    <AssemblyAttribute Include="FluentAssertions.CustomAssertionsAssemblyAttribute">
+    </AssemblyAttribute>
   </ItemGroup>
 
   <ItemGroup>
