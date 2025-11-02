@@ -21,7 +21,7 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 5.0.x
+        dotnet-version: 9.0.x
     
     - name: Install NUKE
       run: |
@@ -35,8 +35,8 @@ jobs:
       with:
         path: ./artifacts/*
         
-    - name: Push to Nuget
-      run: dotnet nuget push .\artifacts\*.nupkg --api-key "$env:ApiKey" --skip-duplicate --no-symbols true --source https://api.nuget.org/v3/index.json
-      if: contains(github.ref, 'refs/tags/')
-      env:
-        ApiKey: ${{ secrets.NUGET_API_KEY }}
+#    - name: Push to Nuget
+#      run: dotnet nuget push .\artifacts\*.nupkg --api-key "$env:ApiKey" --skip-duplicate --no-symbols true --source https://api.nuget.org/v3/index.json
+#      if: contains(github.ref, 'refs/tags/')
+#      env:
+#        ApiKey: ${{ secrets.NUGET_API_KEY }}
