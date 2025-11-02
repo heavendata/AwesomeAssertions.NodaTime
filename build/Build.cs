@@ -71,7 +71,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetTest(s => s
-                .SetProjectFile(Solution.GetProject("FluentAssertions.NodaTime.Specs"))
+                .SetProjectFile(Solution.GetProject("AwesomeAssertions.NodaTime.Specs"))
                 .SetConfiguration(Configuration.Debug)
                 .CombineWith(
                     Solution.FluentAssertions_NodaTime_Specs.GetTargetFrameworks(),
@@ -84,7 +84,7 @@ class Build : NukeBuild
         .Executes(() =>
         {
             DotNetPack(s => s
-                .SetProject(Solution.GetProject("FluentAssertions.NodaTime"))
+                .SetProject(Solution.GetProject("AwesomeAssertions.NodaTime"))
                 .SetOutputDirectory(ArtifactsDirectory)
                 .SetConfiguration(Configuration.Release)
                 .SetVersion(GitVersion.NuGetVersionV2));
