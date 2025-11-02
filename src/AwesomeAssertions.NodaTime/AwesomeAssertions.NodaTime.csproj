@@ -10,7 +10,7 @@
     <AssemblyName>AwesomeAssertions.NodaTime</AssemblyName>
     <PackageId>Heavendata.AwesomeAssertions.NodaTime</PackageId>
     <RootNamespace>AwesomeAssertions.NodaTime</RootNamespace>
-    <Version>0.1.0</Version>
+    <Version>0.2.0</Version>
   </PropertyGroup>
 
   <PropertyGroup>
@@ -21,7 +21,7 @@
     <RepositoryType>git</RepositoryType>
     <PackageTags>AwesomeAssertions;NodaTime;xUnit;NUnit;MSpec;NSpec;TDD;BDD;Fluent;netcore;netstandard;uwp;AwesomeAssertions</PackageTags>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <Copyright>Copyright Jeroen Weelink 2021</Copyright>
+    <Copyright>Copyright Christoph Lütjen, Jeroen Weelink</Copyright>
     <SignAssembly>true</SignAssembly>
   </PropertyGroup>
 

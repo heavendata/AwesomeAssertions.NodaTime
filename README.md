@@ -1,4 +1,4 @@
-# FluentAssertions.NodaTime
+# AwesomeAssertions.NodaTime
 
 [API documentation](docs/FluentAssertions.NodaTime.md)
 
